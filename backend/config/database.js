@@ -1,4 +1,5 @@
-import {Client} from "pg";
+import pg from "pg";
+const {Pool} = pg
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
@@ -8,12 +9,15 @@ const __dirname = dirname(__filename);
 
 dotenv.config({ path: resolve(__dirname, '../.env') });
 
-const client = new Client({
+const pool = new Pool({
    host: process.env.DB_HOST, 
    port: process.env.DB_PORT, 
    user: process.env.DB_USER, 
    password: process.env.DB_PASSWORD, 
-   database: process.env.DB_NAME 
+   database: process.env.DB_NAME,
+   
+   idleTimeoutMillis: 3000,
+   connectionTimeoutMillis: 2000,
 });
 
-export default client;
+export default pool;
