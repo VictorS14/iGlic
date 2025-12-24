@@ -18,3 +18,26 @@ async function saveGlicoseTest(value, user_id) {
 }
 
 
+// funcao para pegar a media do dia
+async function getGlicoseAvarageDay(user_id) {
+  try {
+    console.log("Conectado ao Database!");
+  
+    const res = await pool.query(`
+        SELECT 
+            FLOOR(AVG(g.value)) AS media_do_dia
+        FROM 
+            glicose_values AS g
+        INNER JOIN 
+            users AS u ON g.user_id = u.id
+        WHERE 
+            u.id = $1 AND g.create_at >= CURRENT_DATE 
+            AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
+      `, [user_id]); 
+
+      return res.rows;
+  } catch (error) {
+    console.error("Error ao conectar", error);
+  }
+}
+
