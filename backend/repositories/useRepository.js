@@ -17,6 +17,25 @@ async function saveGlicoseTest(value, user_id) {
    }
 }
 
+// funcao apra editar um valor
+async function updateGlicoseValue(value, glicoseId) {
+  try {
+    console.log("Conectado ao DB");
+
+    const res = await pool.query(`
+      UPDATE glicose_values AS g
+      SET value = $1
+      WHERE g.id = $2
+      RETURNING *;
+    `, [value, glicoseId])
+
+    return res.rows[0];
+
+  } catch(error) {
+    console.log("Error ao conectar:", error);
+  }
+}
+
 
 // funcao para pegar a media do dia
 async function getGlicoseAvarageDay(user_id) {
@@ -40,4 +59,3 @@ async function getGlicoseAvarageDay(user_id) {
     console.error("Error ao conectar", error);
   }
 }
-
