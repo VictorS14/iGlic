@@ -59,3 +59,21 @@ async function getGlicoseAvarageDay(user_id) {
     console.error("Error ao conectar", error);
   }
 }
+
+// função para deletar um valor
+async function deleteById(glicoseId, userId) {
+  try {
+    console.log("Conectado ao DB");
+
+    const result = await pool.query(`
+      DELETE FROM glicose_values AS g
+      WHERE g.id = $1 AND user_id = $2
+      RETURNING *;
+    `, [glicoseId, userId]);
+
+    return result.rows[0];
+
+  } catch(error) {
+    console.log("Error ao conectar", error);
+  }
+}
