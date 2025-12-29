@@ -1,7 +1,7 @@
 import pool from "../config/database.js";
 
 // funcao para inserir os dados na tabela do usser no DB
-async function saveGlicoseTest(value, user_id) {
+export async function saveGlicoseTest(value, user_id) {
   try {
     console.log("Conectado ao Database!");
 
@@ -18,7 +18,7 @@ async function saveGlicoseTest(value, user_id) {
 }
 
 // funcao apra editar um valor
-async function updateGlicoseValue(value, glicoseId) {
+export async function updateGlicoseValue(value, glicoseId) {
   try {
     console.log("Conectado ao DB");
 
@@ -38,7 +38,7 @@ async function updateGlicoseValue(value, glicoseId) {
 
 
 // funcao para pegar a media do dia
-async function getGlicoseAvarageDay(user_id) {
+export async function getGlicoseAvarageDay(user_id) {
   try {
     console.log("Conectado ao Database!");
   
@@ -61,7 +61,7 @@ async function getGlicoseAvarageDay(user_id) {
 }
 
 // função para deletar um valor
-async function deleteById(glicoseId, userId) {
+export async function deleteById(glicoseId, userId) {
   try {
     console.log("Conectado ao DB");
 
