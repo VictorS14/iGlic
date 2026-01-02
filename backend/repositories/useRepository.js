@@ -3,8 +3,6 @@ import pool from "../config/database.js";
 // funcao para inserir os dados na tabela do usser no DB
 export async function saveGlicoseTest(value, user_id) {
   try {
-    console.log("Conectado ao Database!");
-
     const result = await pool.query(`
       INSERT INTO glicose_values(value, user_id)
       VALUES($1, $2)
@@ -20,8 +18,6 @@ export async function saveGlicoseTest(value, user_id) {
 // funcao apra editar um valor
 export async function updateGlicoseValue(value, glicoseId) {
   try {
-    console.log("Conectado ao DB");
-
     const result = await pool.query(`
       UPDATE glicose_values AS g
       SET value = $1
@@ -39,9 +35,7 @@ export async function updateGlicoseValue(value, glicoseId) {
 
 // funcao para pegar a media do dia
 export async function getGlicoseAvarageDay(user_id) {
-  try {
-    console.log("Conectado ao Database!");
-  
+  try {  
     const result = await pool.query(`
         SELECT 
             FLOOR(AVG(g.value)) AS media_do_dia
@@ -63,8 +57,6 @@ export async function getGlicoseAvarageDay(user_id) {
 // função para deletar um valor
 export async function deleteById(glicoseId, userId) {
   try {
-    console.log("Conectado ao DB");
-
     const result = await pool.query(`
       DELETE FROM glicose_values AS g
       WHERE g.id = $1 AND user_id = $2
