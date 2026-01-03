@@ -10,8 +10,14 @@ export async function saveGlicoseTest(value, user_id) {
       `, [value, user_id]);
 
     return result.rows[0];
-  } catch (err) {
-    console.error("Error ao conectar:", err);
+  } catch (error) {
+    console.error("Error ao salvar o valor da glicose:", {
+      message: error.detail,
+      value,
+      timestamp: new Date().toISOString()
+    });
+
+    throw error;
    }
 }
 
@@ -25,10 +31,17 @@ export async function updateGlicoseValue(value, glicoseId) {
       RETURNING *;
     `, [value, glicoseId])
 
+    if(!result.rows[0]){
+      console.warn(`Aviso: Registro com ID ${glicoseId} não encontrado.`)
+      return null
+    }
+
     return result.rows[0];
 
   } catch(error) {
-    console.log("Error ao conectar:", error);
+    console.error("Error ao atualizar a glicose:", error.message);
+
+    throw error;
   }
 }
 
@@ -46,26 +59,34 @@ export async function getGlicoseAvarageDay(user_id) {
         WHERE 
             u.id = $1 AND g.create_at >= CURRENT_DATE 
             AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
-      `, [user_id]); 
+      `, [user_id]);
 
-      return result.rows;
+      return result.rows[0];
   } catch (error) {
     console.error("Error ao conectar", error);
   }
 }
 
+
 // função para deletar um valor
 export async function deleteById(glicoseId, userId) {
   try {
     const result = await pool.query(`
-      DELETE FROM glicose_values AS g
+      DELETE FROM glicose_vals AS g
       WHERE g.id = $1 AND user_id = $2
       RETURNING *;
     `, [glicoseId, userId]);
 
+    if(result.rows[0] == undefined) {
+      console.log(`Aviso: valor da glicose com ID ${glicoseId} ou user com ID ${userId} não foram encontrados.`)
+      return null
+    }
+
     return result.rows[0];
 
   } catch(error) {
-    console.log("Error ao conectar", error);
+    console.log("Error ao deletar:", error.message);
+
+    throw error
   }
 }
