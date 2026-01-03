@@ -47,7 +47,7 @@ export async function updateGlicoseValue(value, glicoseId) {
 
 
 // funcao para pegar a media do dia
-export async function getGlicoseAvarageDay(user_id) {
+export async function getGlicoseAverageDay(userId) {
   try {  
     const result = await pool.query(`
         SELECT 
@@ -59,7 +59,26 @@ export async function getGlicoseAvarageDay(user_id) {
         WHERE 
             u.id = $1 AND g.create_at >= CURRENT_DATE 
             AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
-      `, [user_id]);
+      `, [userId]);
+
+      return result.rows[0];
+  } catch (error) {
+    console.error("Error ao conectar", error);
+  }
+}
+
+
+export async function getGlicoseAverageByPeriod(userId, days) {
+  try {  
+    const result = await pool.query(`
+        SELECT 
+            FLOOR(AVG(g.value)) AS media
+        FROM 
+            glicose_values AS g
+        WHERE 
+            g.user_id = $1   
+            AND g.create_at >= CURRENT_DATE - ($2 * INTERVAL '1 days');
+      `, [userId, days]);
 
       return result.rows[0];
   } catch (error) {
