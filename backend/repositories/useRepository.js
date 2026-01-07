@@ -92,7 +92,7 @@ export async function getGlicoseAverageByPeriod(userId, days) {
 export async function deleteById(glicoseId, userId) {
   try {
     const result = await pool.query(`
-      DELETE FROM glicose_vals AS g
+      DELETE FROM glicose_values AS g
       WHERE g.id = $1 AND user_id = $2
       RETURNING *;
     `, [glicoseId, userId]);
