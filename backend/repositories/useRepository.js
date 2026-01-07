@@ -6,7 +6,7 @@ export async function saveGlicoseTest(value, user_id) {
     const result = await pool.query(`
       INSERT INTO glicose_values(value, user_id)
       VALUES($1, $2)
-      RETURNING value;
+      RETURNING *;
       `, [value, user_id]);
 
     return result.rows[0];
@@ -20,6 +20,7 @@ export async function saveGlicoseTest(value, user_id) {
     throw error;
    }
 }
+
 
 // funcao apra editar um valor
 export async function updateGlicoseValue(value, glicoseId) {
