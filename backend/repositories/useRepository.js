@@ -23,14 +23,14 @@ export async function saveGlicoseTest(value, user_id) {
 
 
 // funcao apra editar um valor
-export async function updateGlicoseValue(value, glicoseId) {
+export async function updateGlicoseValue(value, glicoseId, userId) {
   try {
     const result = await pool.query(`
       UPDATE glicose_values AS g
       SET value = $1
-      WHERE g.id = $2
+      WHERE g.id = $2 AND user_id = $3
       RETURNING *;
-    `, [value, glicoseId])
+    `, [value, glicoseId, userId])
 
     if(!result.rows[0]){
       console.warn(`Aviso: Registro com ID ${glicoseId} não encontrado.`)
