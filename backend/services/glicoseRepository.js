@@ -19,3 +19,19 @@ export const updateMeasurement = async (glicoseValue, glicoseId, userId) => {
 
 	return updated; 
 }
+
+
+export const getAverage = async (userId) => {
+	const data = await glicoseRepo.getGlicoseAverageDay(userId);
+
+	return {
+		userId,
+		average: data.media_do_dia || 0
+	}
+}
+
+
+
+
+
+
