@@ -31,7 +31,18 @@ export const getAverage = async (userId) => {
 }
 
 
+export const getAverageByPeriod = async (userId, days) => {
+	if(days > 30) {
+		throw new Error("Para proteger o servidor o limite máximo é de 30 dias");
+	}
 
+	const data = await glicoseRepo.getGlicoseAverageByPeriod(userId, days);
 
+	return {
+		userId,
+		period: `${days} days`,
+		average: data.media || 0
+	};
+}
 
 
