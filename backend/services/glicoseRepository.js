@@ -45,4 +45,7 @@ export const getAverageByPeriod = async (userId, days) => {
 	};
 }
 
+export const deleteMeasurement = async  (glicoseId, userId) => {
 
+	return glicoseRepo.deleteById(glicoseId, userId);
+}
