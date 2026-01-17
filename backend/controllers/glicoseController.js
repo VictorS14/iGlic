@@ -36,4 +36,16 @@ export const average = async (req, res) => {
 	}
 }
 
+export const averageByPeriod = async (req, res) => {
+	try {
+		const { userId, days } = req.body;
+		const data = await glicoseService.getAverageByPeriod(userId, days)
+
+		return res.status(200).json(data);
+	} catch(error) {
+		
+		return res.status(404).json({ error: error.message });
+	}
+}
+
 
