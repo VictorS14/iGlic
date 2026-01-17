@@ -12,3 +12,16 @@ export const store = async (req, res) => {
 	}
 };
 
+export const update = async (req, res) => {
+	try {
+		const { glicoseValue, glicoseId, userId } = req.body;
+		const measurementUpdated = await glicoseService.updateMeasurement(glicoseValue, glicoseId, userId);
+
+		return res.status(200).json(measurementUpdated);
+	} catch(error) {
+
+		return res.status(400).json({ error: error.message });
+	}
+};
+
+
