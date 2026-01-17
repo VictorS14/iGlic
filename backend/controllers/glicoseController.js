@@ -29,12 +29,12 @@ export const average = async (req, res) => {
 		const { userId } = req.body;
 		const data = await glicoseService.getAverage(userId);
 
-		return res.status(200).json(data)
+		return res.status(200).json(data);
 	} catch(error) {
 
 		return res.status(404).json({ error: error.message });
 	}
-}
+};
 
 export const averageByPeriod = async (req, res) => {
 	try {
@@ -46,6 +46,17 @@ export const averageByPeriod = async (req, res) => {
 		
 		return res.status(404).json({ error: error.message });
 	}
-}
+};
+
+export const removeMeasurement = async (req, res) => {
+	try {
+		const { glicoseId, userId } = req.body;
+		const deteled = await glicoseService.deleteMeasurement(glicoseId, userId);
+
+		return res.status(200).json(deteled);
+	} catch(error) {
+		return res.status(404).json({ error: error.message });
+	}
+};
 
 
