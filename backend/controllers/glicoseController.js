@@ -14,8 +14,13 @@ export const store = async (req, res) => {
 
 export const update = async (req, res) => {
 	try {
-		const { glicoseValue, glicoseId, userId } = req.body;
-		const measurementUpdated = await glicoseService.updateMeasurement(glicoseValue, glicoseId, userId);
+		const { id } = req.params;
+		const { glicoseValue, userId } = req.body;
+		const measurementUpdated = await glicoseService.updateMeasurement(
+			glicoseValue,
+			id,
+			userId
+			);
 
 		return res.status(200).json(measurementUpdated);
 	} catch(error) {
@@ -50,8 +55,9 @@ export const averageByPeriod = async (req, res) => {
 
 export const removeMeasurement = async (req, res) => {
 	try {
-		const { glicoseId, userId } = req.body;
-		const deteled = await glicoseService.deleteMeasurement(glicoseId, userId);
+		const { id } = req.params;
+		const { userId } = req.body;
+		const deteled = await glicoseService.deleteMeasurement(id, userId);
 
 		return res.status(200).json(deteled);
 	} catch(error) {
