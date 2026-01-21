@@ -31,7 +31,7 @@ export const update = async (req, res) => {
 
 export const average = async (req, res) => {
 	try {
-		const { userId } = req.body;
+		const { userId } = req.query;
 		const data = await glicoseService.getAverage(userId);
 
 		return res.status(200).json(data);
@@ -43,7 +43,7 @@ export const average = async (req, res) => {
 
 export const averageByPeriod = async (req, res) => {
 	try {
-		const { userId, days } = req.body;
+		const { userId, days } = req.query;
 		const data = await glicoseService.getAverageByPeriod(userId, days)
 
 		return res.status(200).json(data);
