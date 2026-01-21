@@ -24,7 +24,6 @@ export const update = async (req, res) => {
 
 		return res.status(200).json(measurementUpdated);
 	} catch(error) {
-
 		return res.status(400).json({ error: error.message });
 	}
 };
@@ -56,7 +55,7 @@ export const averageByPeriod = async (req, res) => {
 export const removeMeasurement = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { userId } = req.body;
+		const { userId } = req.query;
 		const deteled = await glicoseService.deleteMeasurement(id, userId);
 
 		return res.status(200).json(deteled);
