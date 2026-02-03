@@ -1,13 +1,13 @@
 import pool from "../config/database.js";
 
 // funcao para inserir os dados na tabela do usser no DB
-export async function saveGlicoseTest(value, user_id) {
+export async function saveGlicoseTest(value, user_id, measure_at = new Date()) {
   try {
     const result = await pool.query(`
-      INSERT INTO glicose_values(value, user_id)
-      VALUES($1, $2)
+      INSERT INTO glicose_values(value, user_id, measure_at)
+      VALUES($1, $2, $3)
       RETURNING *;
-      `, [value, user_id]);
+      `, [value, user_id, measure_at]);
 
     return result.rows[0];
   } catch (error) {
@@ -23,14 +23,18 @@ export async function saveGlicoseTest(value, user_id) {
 
 
 // funcao apra editar um valor
-export async function updateGlicoseValue(value, glicoseId, userId) {
+export async function updateGlicoseValue(value, glicoseId, userId, measure_at) {
   try {
-    const result = await pool.query(`
-      UPDATE glicose_values AS g
-      SET value = $1
-      WHERE g.id = $2 AND user_id = $3
-      RETURNING *;
-    `, [value, glicoseId, userId])
+    let query = `UPDATE glicose_values AS g SET value = $1`;
+    const params = [value];
+    if (measure_at) {
+      query += `, measure_at = $${params.length + 1}`;
+      params.push(measure_at);
+    }
+    query += ` WHERE g.id = $${params.length + 1} AND user_id = $${params.length + 2} RETURNING *;`;
+    params.push(glicoseId, userId);
+
+    const result = await pool.query(query, params);
 
     if(!result.rows[0]){
       console.warn(`Aviso: Registro com ID ${glicoseId} não encontrado.`)
