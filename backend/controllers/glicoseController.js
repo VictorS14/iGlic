@@ -2,8 +2,8 @@ import * as glicoseService from "../services/glicoseService.js";
 
 export const store = async (req, res) => {
 	try {
-		const { value, userId} = req.body;
-		const measurement = await glicoseService.registerGlucose(value, userId);
+		const { glicoseValue, userId, measure_at} = req.body;
+		const measurement = await glicoseService.registerGlucose(glicoseValue, userId, measure_at);
 
 		return res.status(201).json(measurement);
 	} catch(error) {
@@ -15,11 +15,12 @@ export const store = async (req, res) => {
 export const update = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { glicoseValue, userId } = req.body;
+		const { glicoseValue, userId, measure_at } = req.body;
 		const measurementUpdated = await glicoseService.updateMeasurement(
 			glicoseValue,
 			id,
-			userId
+			userId,
+			measure_at
 			);
 
 		return res.status(200).json(measurementUpdated);
