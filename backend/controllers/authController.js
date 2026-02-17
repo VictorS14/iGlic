@@ -6,7 +6,7 @@ export const requestCode = async (req, res) => {
     await authService.requestLoginCode(email);
     return res.status(200).json({ message: "Código de login enviado para o seu e-mail." });
   } catch (error) {
-    return res.staus(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
 
