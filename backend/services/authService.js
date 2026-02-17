@@ -1,5 +1,6 @@
 // backend/services/authService.js
 import * as authRepository from '../repositories/authRepository.js';
+import { generateToken } from '../utils/jwtUtils.js'; 
 import { generateCode } from '../utils/codeGenerator.js'; 
 import { sendEmail } from '../utils/emailSender.js';
 
@@ -43,7 +44,10 @@ export const verifyLoginCode = async (email, code) => {
     await authRepository.markAuthCodeAsUsed(authCode.id);
 
     // TODO: Gerar um token JWT real aqui
-    const token = `fake-jwt-token-for-user-${user.id}`;
+    const token = generateToken({ 
+        id: user.id, 
+        email: user.email 
+    });
 
     return token;
 };
