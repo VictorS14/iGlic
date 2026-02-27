@@ -43,3 +43,15 @@ export const markAuthCodeAsUsed = async (authCodeId) => {
     [authCodeId],
   );
 };
+
+export const createGuestUser = async (name) => {
+  const result = await pool.query(
+    `
+    INSERT INTO users (name)
+    VALUES ($1)
+    RETURNING id, name
+    `,
+    [name],
+  );
+  return result.rows[0];
+};
