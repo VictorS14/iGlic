@@ -5,5 +5,6 @@ const router = Router();
 
 router.post('/auth/request-code', authController.requestCode);
 router.post('/auth/verify-code', authController.verifyCode);
+router.post('/auth/guest', authController.guestLogin);
 
 export default router;
