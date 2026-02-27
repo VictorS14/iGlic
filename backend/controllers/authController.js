@@ -19,3 +19,12 @@ export const verifyCode = async (req, res) => {
     return res.status(200).json({ error: error.message });
   }
 };
+
+export const guestLogin = async (req, res) => {
+  try {
+    const { user, token } = await authService.createGuestSession();
+    return res.status(201).json({ message: "Entrada temporária criada!", user, token });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
