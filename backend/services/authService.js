@@ -1,4 +1,5 @@
 // backend/services/authService.js
+import { randomUUID } from "crypto";
 import * as authRepository from '../repositories/authRepository.js';
 import { generateToken } from '../utils/jwtUtils.js'; 
 import { generateCode } from '../utils/codeGenerator.js'; 
@@ -50,4 +51,15 @@ export const verifyLoginCode = async (email, code) => {
     });
 
     return token;
+};
+
+export const createGuestSession = async () => {
+    const name = `Convidado-${randomUUID()}`;
+    const user = await authRepository.createGuestUser(name);
+    const token = generateToken({
+        id: user.id,
+        name: user.name
+    });
+
+    return { user, token };
 };
