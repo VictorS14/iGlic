@@ -4,13 +4,7 @@ import glicoseRoutes from './routes/glicoseRoutes.js'
 import authRoutes from './routes/authRoutes.js'; // Importa as novas rotas de autenticação
 
 const app = express();
-app.use((req, res, next) => {
-    console.log(`Requisição recebida: ${req.method} ${req.url}`);
-    next();
-});
-
 app.use(express.json());
-
 app.use(glicoseRoutes);
 app.use(authRoutes);
 
