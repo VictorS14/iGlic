@@ -1,8 +1,10 @@
+import { Content } from "../layout/Content.jsx" 
+
 function App() {
 
   return (
     <>
-    <h1>Ola</h1>
+    <Content/>
     </>
   )
 }
