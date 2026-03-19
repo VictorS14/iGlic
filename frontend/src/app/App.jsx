@@ -1,11 +1,15 @@
-import { Content } from "../layout/Content.jsx" 
+import { Content } from "../layout/Content.jsx"
+import {QueryClientProvider, QueryClient} from "@tanstack/react-query" 
+
+
+const queryClient = new QueryClient();
 
 function App() {
 
   return (
-    <>
-    <Content/>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Content/>
+    </QueryClientProvider>
   )
 }
 
