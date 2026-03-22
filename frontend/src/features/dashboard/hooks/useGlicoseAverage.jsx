@@ -1,19 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-export const useGlicoseAverage = (userId, selected) => {
-    return useQuery({
-        queryKey: ['media', userId, selected],
-        queryFn: async () => {
-            if(selected === "Hoje") {
-                const res = await fetch(`http://localhost:3000/glicose/average?userId=${userId}`)
-                if(!res.ok) throw new Error("Erro ao buscar média")
-                return res.json();
-            } 
-            const days = selected.split(" ")[0];
-            const res = await fetch(`http://localhost:3000/glicose/average-period?userId=${userId}&days=${days}`)
-            if(!res.ok) throw new Error("Erro ao buscar média")
-            return res.json();
+export const useGlicoseAverage = (userId, selectedPeriod) => {
+  return useQuery({
+    queryKey: ["media", userId, selectedPeriod],
+    queryFn: async () => {
+      const baseUrl = "http://localhost:3000/glicose";
 
-        }
-    }) 
-}
+      if (selectedPeriod === "Hoje") {
+        const response = await axios.get(`${baseUrl}/average`, {
+          params: { userId },
+        });
+        return response.data;
+      }
+
+      const days = selectedPeriod.split(" ")[0];
+      const response = await axios.get(`${baseUrl}/average-period`, {
+        params: { userId, days },
+      });
+      return response.data;
+    },
+  });
+};
