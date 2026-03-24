@@ -56,7 +56,8 @@ export async function getGlicoseAverageDay(userId) {
   try {  
     const result = await pool.query(`
         SELECT 
-            FLOOR(AVG(g.value)) AS media_do_dia
+            FLOOR(AVG(g.value)) AS media_do_dia,
+            COUNT(g.value) AS quantidade_medicoes
         FROM 
             glicose_values AS g
         INNER JOIN 
@@ -77,7 +78,8 @@ export async function getGlicoseAverageByPeriod(userId, days) {
   try {  
     const result = await pool.query(`
         SELECT 
-            FLOOR(AVG(g.value)) AS media
+            FLOOR(AVG(g.value)) AS media,
+            COUNT(g.value) AS quantidade_medicoes
         FROM 
             glicose_values AS g
         WHERE 
