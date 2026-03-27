@@ -5,7 +5,8 @@ export const useGlicoseAverage = (userId, selectedPeriod) => {
   return useQuery({
     queryKey: ["media", userId, selectedPeriod],
     queryFn: async () => {
-      const baseUrl = "http://localhost:3000/glicose";
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+      const baseUrl = `${apiUrl}/glicose`;
 
       if (selectedPeriod === "Hoje") {
         const response = await axios.get(`${baseUrl}/average`, {
