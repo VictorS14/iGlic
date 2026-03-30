@@ -1,7 +1,7 @@
 import { Header } from "./Header";
 import { Dashboard } from "../features/dashboard/pages/Dashboard";
 import { Routes, Route } from "react-router-dom";
-import { SettingsPage } from "../features/settings/setting.jsx";
+import { SettingsPage } from "../features/settings/pages/setting.jsx";
 
 export const Content = () => {
   return (
