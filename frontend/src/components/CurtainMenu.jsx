@@ -39,7 +39,7 @@ export const CurtainMenu = () => {
               key={index}
               to={item.href}
               onClick={() => setIsOpen(false)}
-              className="text-3xl font-light text-white hover:text-green-400 transition-all duration-300 transform hover:scale-110"
+              className="text-2xl font-light text-white hover:text-green-400 transition-all duration-300 transform hover:scale-110"
             >
               {item.label}
             </Link>
