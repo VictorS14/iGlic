@@ -1,11 +1,10 @@
 export const TargetRange = ({
    targetRangeMin, 
    targetRangeMax,
-   setTargetRangeMin,
-   setTargetRangeMax,
    handleMinRangeChange,
    handleMaxRangeChange,
-   handleBlur,
+   handleMinBlur,
+   handleMaxBlur,
    minGlicoseValue,
    maxGlicoseValue}) => {
 
@@ -21,7 +20,7 @@ export const TargetRange = ({
             type="number"
             value={targetRangeMin}
             onChange={handleMinRangeChange}
-            onBlur={() => handleBlur(setTargetRangeMin, targetRangeMin)}
+            onBlur={handleMinBlur}
             placeholder="70"
          />
          -
@@ -30,7 +29,7 @@ export const TargetRange = ({
             type="number"
             value={targetRangeMax}
             onChange={handleMaxRangeChange}
-            onBlur={() => handleBlur(setTargetRangeMax, targetRangeMax)}
+            onBlur={handleMaxBlur}
             placeholder="160"
          />
          <p
