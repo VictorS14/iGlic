@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { VeryHigh } from "./VeryHigh";
 import { TargetRange } from "./TargetRange";
+import { useTargetRange } from "../../store/useTargetRange.js";
+import {handleMinBlur, handleMaxBlur } from "./utils/therapyUtils.js";
 
 export const TherapySettings = () => {
   const [veryHigh, setVeryHigh] = useState("");
   const [targetRangeMin, setTargetRangeMin] = useState("");
   const [targetRangeMax, setTargetRangeMax] = useState("");
+  const setMinTarget = useTargetRange((state) => state.setMinTarget);
+  const setMaxTarget = useTargetRange((state) => state.setMaxTarget);
+  const setVeryHighStore = useTargetRange((state) => state.setVeryHigh);
 
-  const maxVeryHigh = 600;
+
+  const maxVeryHigh = 250;
   const maxGlicoseValue = 210;
   const minGlicoseValue = 70;
 
@@ -16,6 +22,7 @@ export const TherapySettings = () => {
 
     if (newValue.length <= 3 && newValue <= maxVeryHigh) {
       setVeryHigh(newValue);
+      if(setVeryHighStore) setVeryHighStore(newValue);
     }
   };
 
@@ -24,34 +31,24 @@ export const TherapySettings = () => {
 
     if (newValue.length <= 3) {
       setTargetRangeMin(newValue);
+      setMinTarget(newValue);
     }
   };
-
-  console.log(targetRangeMin);
 
   const handleMaxRangeChange = (e) => {
     const newValue = e.target.value;
     if (newValue.length <= 3) {
       setTargetRangeMax(newValue);
+      setMaxTarget(newValue);
     }
   };
-
-  const handleBlur = (setter, value) => {
-    if (value === "") return;
-    const num = Number(value);
-    if (num < minGlicoseValue) {
-      setter(minGlicoseValue.toString());
-    } else if (num > maxGlicoseValue) {
-      setter(maxGlicoseValue.toString());
-    }
-  };
-
+  
   return (
     <div className="flex flex-col gap-6">
       <h1>Terapia</h1>
       <VeryHigh
-        value={veryHigh}
-        onChange={handleChange}
+        veryHigh={veryHigh}
+        handleChange={handleChange}
       />
 
       <TargetRange 
@@ -61,9 +58,26 @@ export const TherapySettings = () => {
         setTargetRangeMax={setTargetRangeMax}
         handleMinRangeChange={handleMinRangeChange}
         handleMaxRangeChange={handleMaxRangeChange}
-        handleBlur={handleBlur}
         minGlicoseValue={minGlicoseValue}
         maxGlicoseValue={maxGlicoseValue}
+        handleMinBlur={() => handleMinBlur({
+          targetRangeMin, 
+          targetRangeMax, 
+          minGlicoseValue, 
+          maxGlicoseValue, 
+          setTargetRangeMin,
+          setTargetRangeMax, 
+          setMinTarget, 
+          setMaxTarget
+        })}
+        handleMaxBlur={() => handleMaxBlur({
+          targetRangeMax, 
+          targetRangeMin, 
+          minGlicoseValue, 
+          maxGlicoseValue, 
+          setTargetRangeMax, 
+          setMaxTarget
+        })}
       />
     </div>
   );
