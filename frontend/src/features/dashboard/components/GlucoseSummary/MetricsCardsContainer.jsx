@@ -1,5 +1,6 @@
 import { useGlicoseAverage } from "../../hooks/useGlicoseAverage";
 import { MetricCard } from "../../ui/MetricCard";
+import { GlycemicVariability } from "./GlycemicVariability";
 
 export const MetricsCardsContainer = ({ selectedPeriod }) => {
   // Tentando pegar o ID do localStorage, se não existir, usa o 8 para testes :)
@@ -33,6 +34,8 @@ export const MetricsCardsContainer = ({ selectedPeriod }) => {
         />
 
         <MetricCard title={"Nº Medições"} value={data?.quantity} />
+
+        <GlycemicVariability />
       </div>
     </>
   );
