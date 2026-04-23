@@ -12,6 +12,14 @@ export const TherapySettings = () => {
   const setMaxTarget = useTargetRange((state) => state.setMaxTarget);
   const setVeryHighStore = useTargetRange((state) => state.setVeryHigh);
 
+  const userSettings = {
+    veryHigh,
+    targetRangeMin,
+    targetRangeMax
+  }
+
+  // TODO: Esses valores devem ser migrados para uma tabela no banco de dados
+  localStorage.setItem('userSettings', JSON.stringify(userSettings));
 
   const maxVeryHigh = 250;
   const maxGlicoseValue = 210;
@@ -42,7 +50,7 @@ export const TherapySettings = () => {
       setMaxTarget(newValue);
     }
   };
-  
+
   return (
     <div className="flex flex-col gap-6">
       <h1>Terapia</h1>
