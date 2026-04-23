@@ -27,7 +27,8 @@ export const getAverage = async (userId) => {
 	return {
 		userId,
 		average: data.media_do_dia || 0,
-		quantity: data.quantidade_medicoes || 0
+		quantity: data.quantidade_medicoes || 0,
+		medments: data.medicoes || []
 	}
 }
 
@@ -43,7 +44,8 @@ export const getAverageByPeriod = async (userId, days) => {
 		userId,
 		period: `${days} days`,
 		average: data.media || 0,
-		quantity: data.quantidade_medicoes || 0
+		quantity: data.quantidade_medicoes || 0,
+		medments: data.medicoes || []
 	};
 }
 
