@@ -35,7 +35,7 @@ export const MetricsCardsContainer = ({ selectedPeriod }) => {
 
         <MetricCard title={"Nº Medições"} value={data?.quantity} />
 
-        <GlycemicVariability />
+        <GlycemicVariability medments={data?.medments} />
       </div>
     </>
   );
