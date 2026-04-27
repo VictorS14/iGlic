@@ -1,11 +1,12 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { devtools, persist } from "zustand/middleware";
 
 export const useTargetRange = create(
-devtools((set) => ({
-   veryHigh: 0,
-   minTarget: 0,
-   maxTarget: 0,
+   
+persist(devtools((set) => ({
+   veryHigh: "",
+   minTarget: "",
+   maxTarget: "",
    setVeryHigh: (value) => {
       set({veryHigh: value}, false, "setVeryHigh");
    },
@@ -15,5 +16,11 @@ devtools((set) => ({
 
    setMaxTarget: (value) => {
       set({ maxTarget: value }, false, "setMaxTarget");
+   },
+
+})),
+   { 
+      name: "userSettings"
    }
-})));
+   )
+);
