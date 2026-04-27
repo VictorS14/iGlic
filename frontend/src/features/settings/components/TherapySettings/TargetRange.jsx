@@ -1,3 +1,5 @@
+import { useTargetRange } from "../../store/useTargetRange" 
+
 export const TargetRange = ({
    targetRangeMin, 
    targetRangeMax,
@@ -7,6 +9,9 @@ export const TargetRange = ({
    handleMaxBlur,
    minGlicoseValue,
    maxGlicoseValue}) => {
+
+   const targetMin = useTargetRange((state) => state.minTarget)
+   const targetMax = useTargetRange((state) => state.maxTarget)
 
   return (
    <div className="h-18 flex gap-4 items-center">
@@ -18,7 +23,7 @@ export const TargetRange = ({
          <input
             className="w-12 h-8 border border-gray-400 outline-none pl-2 rounded-md"
             type="number"
-            value={targetRangeMin}
+            value={targetMin}
             onChange={handleMinRangeChange}
             onBlur={handleMinBlur}
             placeholder="70"
@@ -27,7 +32,7 @@ export const TargetRange = ({
          <input
             className="w-12 h-8 border border-gray-400 outline-none pl-2 rounded-md"
             type="number"
-            value={targetRangeMax}
+            value={targetMax}
             onChange={handleMaxRangeChange}
             onBlur={handleMaxBlur}
             placeholder="160"

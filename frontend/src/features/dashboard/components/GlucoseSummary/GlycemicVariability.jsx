@@ -1,14 +1,16 @@
+import { useTargetRange } from "../../../settings/store/useTargetRange";
+
 export const GlycemicVariability = ({ medments }) => {
-  const userSetting = JSON.parse(localStorage.getItem("userSettings")) || {
-    targetRangeMin: 70,
-    targetRangeMax: 160,
-  };
+ 
+  const targetMin = useTargetRange((state) => state.minTarget);
+  const targetMax = useTargetRange((state) => state.maxTarget);
 
   const lowCount = medments?.filter(
-    (values) => values < userSetting.targetRangeMin,
+    (values) => Number(values) < Number(targetMin),
   ).length || 0;
+
   const highCount = medments?.filter(
-    (values) => values > userSetting.targetRangeMax,
+    (values) => Number(values) > Number(targetMax),
   ).length || 0;
 
   return (
