@@ -4,9 +4,9 @@ import { devtools, persist } from "zustand/middleware";
 export const useTargetRange = create(
    
 persist(devtools((set) => ({
-   veryHigh: "",
-   minTarget: "",
-   maxTarget: "",
+   veryHigh: 250,
+   minTarget: 70,
+   maxTarget: 170,
    setVeryHigh: (value) => {
       set({veryHigh: value}, false, "setVeryHigh");
    },
