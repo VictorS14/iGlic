@@ -53,3 +53,12 @@ export const deleteMeasurement = async  (glicoseId, userId) => {
 
 	return glicoseRepo.deleteById(glicoseId, userId);
 }
+
+export const saveTargetRange = async (userId, veryHigh, targetRangeMin, targetRangeMax) => {
+	return await glicoseRepo.saveUserTargetRange(userId, veryHigh, targetRangeMin, targetRangeMax)
+}
+
+export const getUserTargetRange = async (userId) => {
+	return await glicoseRepo.getUserTargetRange(userId);
+}
+

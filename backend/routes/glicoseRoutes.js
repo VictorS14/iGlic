@@ -13,5 +13,9 @@ router.get('/glicose/average-period', glicoseController.averageByPeriod);
 
 router.delete('/glicose/:id', glicoseController.removeMeasurement);
 
+router.post('/glicose/target-range', glicoseController.saveTargetRange);
+
+router.get('/glicose/target-range', glicoseController.getTargetRange);
+
 
 export default router; 

@@ -65,4 +65,24 @@ export const removeMeasurement = async (req, res) => {
 	}
 };
 
+export const saveTargetRange = async (req, res) => {
+	try {
+		const {userId, veryHigh, targetRangeMin, targetRangeMax} = req.body;
+		const range = await glicoseService.saveTargetRange(userId, veryHigh, targetRangeMin, targetRangeMax);
+		return res.status(200).json(range);
+	} catch (error) {
+		return res.status(400).json({ error: error.message });
+	};
+};
+
+export const getTargetRange = async (req, res) => {
+	try {
+		const {userId} = req.query;
+		const range = await glicoseService.getUserTargetRange(userId);
+		return res.status(200).json(range);
+	} catch (error) {
+		return res.status(400).json({ error: error.message });
+	};
+};
+
 

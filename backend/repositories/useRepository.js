@@ -118,3 +118,39 @@ export async function deleteById(glicoseId, userId) {
     throw error
   }
 }
+
+export async function saveUserTargetRange(userId, veryHigh, targetRangeMin, targetRangeMax) {
+  try {
+    const result = await pool.query(`
+      INSERT INTO user_target_range(user_id, very_high, target_range_min, target_range_max)
+      VALUES($1, $2, $3, $4)
+      ON CONFLICT (user_id)
+      DO UPDATE SET
+        very_high = EXCLUDED.very_high,
+        target_range_min = EXCLUDED.target_range_min,
+        target_range_max = EXCLUDED.target_range_max
+      RETURNING *;
+      `, [userId, veryHigh, targetRangeMin, targetRangeMax]);
+    return result.rows[0];
+  } catch (error) {
+    console.log("Error ao salvar o range de alvo:", error.message);
+    throw error;
+  };
+};
+
+export async function getUserTargetRange(userId) {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        very_high, 
+        target_range_min, 
+        target_range_max
+      FROM user_target_range 
+      WHERE user_id = $1
+      `, [userId]);
+      return result.rows[0];
+  } catch (error) {
+    console.log("Error ao buscar o range de alvo:", error.message);
+    throw error;
+  };
+};
