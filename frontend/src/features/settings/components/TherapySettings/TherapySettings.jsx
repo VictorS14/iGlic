@@ -3,54 +3,73 @@ import { VeryHigh } from "./VeryHigh";
 import { TargetRange } from "./TargetRange";
 import { useTargetRange } from "../../store/useTargetRange.js";
 import {handleMinBlur, handleMaxBlur } from "./utils/therapyUtils.js";
+import { useSaveTargetRangeOnDB } from "../../hooks/useSaveTargetRangeOnDB.jsx";
 
 export const TherapySettings = () => {
-  const [veryHigh, setVeryHigh] = useState("");
-  const [targetRangeMin, setTargetRangeMin] = useState("");
-  const [targetRangeMax, setTargetRangeMax] = useState("");
+  const storedVeryHigh = useTargetRange((state) => state.veryHigh);
+  const storedMin = useTargetRange((state) => state.minTarget);
+  const storedMax = useTargetRange((state) => state.maxTarget);
+
+  const [veryHigh, setVeryHigh] = useState(storedVeryHigh);
+  const [targetRangeMin, setTargetRangeMin] = useState(storedMin);
+  const [targetRangeMax, setTargetRangeMax] = useState(storedMax);
+
   const setMinTarget = useTargetRange((state) => state.setMinTarget);
   const setMaxTarget = useTargetRange((state) => state.setMaxTarget);
   const setVeryHighStore = useTargetRange((state) => state.setVeryHigh);
-
-  const userSettings = {
-    veryHigh,
-    targetRangeMin,
-    targetRangeMax
-  }
-
-  // TODO: Esses valores devem ser migrados para uma tabela no banco de dados
-  localStorage.setItem('userSettings', JSON.stringify(userSettings));
 
   const maxVeryHigh = 250;
   const maxGlicoseValue = 210;
   const minGlicoseValue = 70;
 
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?.id || 8; // o ID 8 é apenas para teste
+
+  const saveTargetRangeOnDB = useSaveTargetRangeOnDB();
+
+  const validateAndSet = (value, setter, storeSetter) => {
+    if(value.length <= 3) {
+      setter(value);
+      if(storeSetter) storeSetter(value);
+    }
+  }
+
   const handleChange = (e) => {
     const newValue = e.target.value;
 
-    if (newValue.length <= 3 && newValue <= maxVeryHigh) {
-      setVeryHigh(newValue);
-      if(setVeryHighStore) setVeryHighStore(newValue);
+    if (newValue.length <= maxVeryHigh) {
+      validateAndSet(newValue, setVeryHigh, setVeryHighStore);
+      saveTargetRangeOnDB.mutate({
+        userId: userId,
+        veryHigh: newValue,
+        targetRangeMin: targetRangeMin,
+        targetRangeMax: targetRangeMax
+      });
     }
   };
 
   const handleMinRangeChange = (e) => {
-    const newValue = e.target.value;
-
-    if (newValue.length <= 3) {
-      setTargetRangeMin(newValue);
-      setMinTarget(newValue);
-    }
+    const newValue = e.target.value
+    validateAndSet(newValue, setTargetRangeMin, setMinTarget);
+    saveTargetRangeOnDB.mutate({
+        userId: userId,
+        veryHigh: veryHigh,
+        targetRangeMin: newValue,
+        targetRangeMax: targetRangeMax
+      });
   };
 
   const handleMaxRangeChange = (e) => {
-    const newValue = e.target.value;
-    if (newValue.length <= 3) {
-      setTargetRangeMax(newValue);
-      setMaxTarget(newValue);
-    }
+    const newValue = e.target.value 
+    validateAndSet(newValue, setTargetRangeMax, setMaxTarget);
+    saveTargetRangeOnDB.mutate({
+        userId: userId,
+        veryHigh: veryHigh,
+        targetRangeMin: targetRangeMin,
+        targetRangeMax: newValue 
+      });
   };
-
+  
   return (
     <div className="flex flex-col gap-6">
       <h1>Terapia</h1>
