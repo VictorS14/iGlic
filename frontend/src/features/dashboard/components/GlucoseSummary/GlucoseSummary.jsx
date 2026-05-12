@@ -29,7 +29,7 @@ export const GlucoseSummary = () => {
     }, [])
 
   return (
-    <div className="w-full h-48 flex flex-col gap-2 border">
+    <div className="w-full h-48 flex flex-col gap-2">
       <TimerRangerSelector
         selectedPeriod={selectedPeriod}
         setSelectedPeriod={setSelectedPeriod}

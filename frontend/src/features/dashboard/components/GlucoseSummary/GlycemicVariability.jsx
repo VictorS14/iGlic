@@ -14,7 +14,7 @@ export const GlycemicVariability = ({ medments }) => {
   ).length || 0;
 
   return (
-    <div className="w-1/2 h-1/2 flex items-center justify-center">
+    <div className="w-1/2 h-1/2 flex items-center justify-center border">
       <div className="border-r pr-2">
         <span className="text-[min(5vw,1.25rem)]">Baixas</span>
         <p className="text-green-500 text-2xl font-bold">
