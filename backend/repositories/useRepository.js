@@ -154,3 +154,20 @@ export async function getUserTargetRange(userId) {
     throw error;
   };
 };
+
+export async function getRecentReadings(userId) {
+  try{
+    const result = await pool.query(`
+      SELECT 
+        g.value,
+        TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
+      FROM glicose_values AS g
+      WHERE g.user_id = $1 AND g.create_at >= CURRENT_DATE
+        AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
+      `, [userId]);
+        return result.rows;
+  }catch(error) {
+    console.error("Error ao buscar os valores recentes:", error.message);
+    throw error;
+  }
+}
