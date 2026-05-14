@@ -62,3 +62,6 @@ export const getUserTargetRange = async (userId) => {
 	return await glicoseRepo.getUserTargetRange(userId);
 }
 
+export const getRecentReadings = async (userId) => {
+	return await glicoseRepo.getRecentReadings(userId);
+}
