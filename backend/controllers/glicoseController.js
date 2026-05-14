@@ -85,4 +85,12 @@ export const getTargetRange = async (req, res) => {
 	};
 };
 
-
+export const getRecentReadings = async (req,res) => {
+	try {
+		const {userId} = req.query;
+		const recentReadings = await glicoseService.getRecentReadings(userId);
+		return res.status(200).json(recentReadings);
+	} catch (error) {
+		return res.status(400).json({error: error.message});
+	};
+};
