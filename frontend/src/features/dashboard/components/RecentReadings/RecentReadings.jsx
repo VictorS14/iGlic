@@ -1,0 +1,46 @@
+import { useRecentReadings } from "../../hooks/useRecentReadings";
+import { useTargetRange } from "../../../settings/store/useTargetRange";
+
+export const RecentReadings = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?.id || 8;
+
+  const { data, status } = useRecentReadings(userId);
+
+  const targetMin = useTargetRange((state) => state.minTarget)
+  const targetMax = useTargetRange((state) => state.maxTarget)
+
+  const date = new Date().toLocaleDateString();
+
+  return (
+    <div>
+      <div className="border w-full min-h-60">
+        {status === "loading" && <p>Carregando leituras recentes...</p>}
+        {status === "error" && (
+          <p>Erro ao carregar leituras. Tente novamente.</p>
+        )}
+        {status === "success" && data && data.length > 0 ? (
+          <ul className="mt-4 space-y-2">
+            <p className="text-md text-gray-500 font-semibold ml-2">{date}</p>
+            {data.map((reading) => (
+              <li
+                key={reading.id}
+                className="p-3 border rounded-md flex items-center"
+              >
+                <span className="text-gray-500">{reading.timestamp}</span>
+                <div className= {`${reading.value > targetMax ? "bg-red-600" : reading.value < targetMin ? "bg-orange-700" : "bg-green-700"}
+                text-white font-medium ml-2 border w-10 h-10 p-2 rounded-full flex items-center justify-center`}>
+                  {reading.value}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : status === "success" && (!data || data.length < 0) ? (
+          <p className="mt-4 text-gray-500">
+            Nenhuma leitura recente encontrada.
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+};
