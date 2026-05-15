@@ -1,10 +1,11 @@
 import { GlucoseSummary } from "../components/GlucoseSummary/GlucoseSummary";
-// import { TimerRangerSelector } from "../components/GlucoseSummary/TimerRangerSelector";
+import { RecentReadings } from "../components/RecentReadings/RecentReadings";
 
 export const Dashboard = () => {
   return (
-    <div className="w-full h-44 flex justify-center">
+    <div className="w-full h-full border flex flex-col gap-2">
         <GlucoseSummary/>
+        <RecentReadings/>
     </div>
   );
 };
