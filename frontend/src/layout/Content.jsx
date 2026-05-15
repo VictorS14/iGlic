@@ -5,7 +5,7 @@ import { SettingsPage } from "../features/settings/pages/setting.jsx";
 
 export const Content = () => {
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-gray-100">
+    <div className="w-full min-h-dvh flex flex-col items-center bg-gray-100">
       <Header />
       <main className="w-full max-w-3xl p-4 grow border">
         <Routes>
