@@ -7,7 +7,7 @@ export const Content = () => {
   return (
     <div className="w-full min-h-dvh flex flex-col items-center bg-gray-100">
       <Header />
-      <main className="w-full max-w-3xl p-4 grow border">
+      <main className="w-full mt-16 max-w-3xl p-4 grow border">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/settings" element={<SettingsPage />} />
