@@ -18,7 +18,7 @@ export const useDeleteGlicose = () => {
       },
 
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ["recentReadings"] })
+         queryClient.invalidateQueries(["recentReadings", "media"])
       }
    })
 }

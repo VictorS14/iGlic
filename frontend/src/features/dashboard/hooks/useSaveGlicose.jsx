@@ -19,7 +19,7 @@ export const useSaveGlicose = () => {
     },
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recentReadings"] });
+      queryClient.invalidateQueries(["recentReadings", "media"]);
     },
   });
 };
