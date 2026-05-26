@@ -159,6 +159,7 @@ export async function getRecentReadings(userId) {
   try{
     const result = await pool.query(`
       SELECT 
+        g.id,
         g.value,
         TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
       FROM glicose_values AS g
