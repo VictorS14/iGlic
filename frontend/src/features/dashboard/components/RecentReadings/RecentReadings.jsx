@@ -1,11 +1,15 @@
 import { useRecentReadings } from "../../hooks/useRecentReadings";
 import { useTargetRange } from "../../../settings/store/useTargetRange";
+import { FaTrashAlt, FaPen } from "react-icons/fa";
+import { useDeleteGlicose } from "../../hooks/useDeleteGlicose";
 
 export const RecentReadings = () => {
+  const deleteGlicose = useDeleteGlicose();
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const userId = storedUser?.id || 8;
 
   const { data, status } = useRecentReadings(userId);
+  console.log("🚀 ~ RecentReadings ~ data:", data)
 
   const targetMin = useTargetRange((state) => state.minTarget)
   const targetMax = useTargetRange((state) => state.maxTarget)
@@ -31,6 +35,14 @@ export const RecentReadings = () => {
                 <div className= {`${reading.value > targetMax ? "bg-red-600" : reading.value < targetMin ? "bg-orange-700" : "bg-green-700"}
                 text-white font-medium ml-2 border w-10 h-10 p-2 rounded-full flex items-center justify-center`}>
                   {reading.value}
+                </div>
+                <div className="w-32 h-10 flex items-center gap-6 p-2 ml-auto border">
+                <FaTrashAlt
+                size={20} 
+                className="text-red-500"
+                onClick={() => deleteGlicose.mutate({ id: reading.id, userId: userId})}
+                />
+                <FaPen size={20}/>
                 </div>
               </li>
             ))}
