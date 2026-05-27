@@ -161,7 +161,7 @@ export async function getRecentReadings(userId) {
       SELECT 
         g.id,
         g.value,
-        TO_CHAR(g.measure_at, 'DD-MM-YYYY') AS measure_at,
+        TO_CHAR(g.measure_at, 'DD-MM-YYYY HH24:MI') AS measure_at,
         TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
       FROM glicose_values AS g
       WHERE g.user_id = $1 AND g.create_at >= CURRENT_DATE
