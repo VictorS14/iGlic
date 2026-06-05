@@ -2,6 +2,7 @@ import { useRecentReadings } from "../../hooks/useRecentReadings";
 import { useTargetRange } from "../../../settings/store/useTargetRange";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 import { useDeleteGlicose } from "../../hooks/useDeleteGlicose";
+import { useModalEntry } from "../../store/useModalEntry";
 
 export const RecentReadings = () => {
   const deleteGlicose = useDeleteGlicose();
@@ -11,10 +12,15 @@ export const RecentReadings = () => {
   const { data, status } = useRecentReadings(userId);
   console.log("🚀 ~ RecentReadings ~ data:", data)
 
-  const targetMin = useTargetRange((state) => state.minTarget)
-  const targetMax = useTargetRange((state) => state.maxTarget)
+  const targetMin = useTargetRange((state) => state.minTarget);
+  const targetMax = useTargetRange((state) => state.maxTarget);
 
-  const date = new Date().toLocaleDateString();
+  const today = new Date();
+  const date = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()}`;
+
+  const setterIsOpen = useModalEntry((state) => state.setIsOpen);
+  const setterEditingModalIsOpen = useModalEntry((state) => state.setEditingModalIsOpen);
+  // const setterMeasurementToUpdate = useModalEntry((state) => state.setMeasurementToUpdate);
 
   return (
     <div>
@@ -26,7 +32,10 @@ export const RecentReadings = () => {
         {status === "success" && data && data.length > 0 ? (
           <ul className="mt-4 space-y-2">
             <p className="text-md text-gray-500 font-semibold ml-2">{date}</p>
-            {data.map((reading) => (
+            {data.filter((reading) => {
+              return reading.measure_at.slice(0,10) === date;
+            })
+            .map((reading) => (
               <li
                 key={reading.id}
                 className="p-3 border rounded-md flex items-center"
@@ -42,7 +51,13 @@ export const RecentReadings = () => {
                 className="text-red-500"
                 onClick={() => deleteGlicose.mutate({ id: reading.id, userId: userId})}
                 />
-                <FaPen size={20}/>
+                <FaPen size={20} className="text-blue-800"
+                onClick={() => {
+                  setterEditingModalIsOpen(true, reading)
+                  setterIsOpen(true)
+                  // setterMeasurementToUpdate({id: reading.id, ...reading})
+                }}
+                />
                 </div>
               </li>
             ))}
