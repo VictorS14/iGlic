@@ -6,14 +6,25 @@ export const useModalEntry = create(
     devtools((set) => ({
       isOpen: false,
       editingModalIsOpen: false,
+      measurementToUpdate: {
+        id: null,
+        value: null,
+        measure_at: null,
+        timestamp: null
+      },
 
       setIsOpen: (value) => {
         set({ isOpen: value }, false, "setIsOpen");
       },
 
-      setEditingModalIsOpen: (value) => {
-        set({ editingModalIsOpen: value }, false, "setEditingModalIsOpen");
+      setEditingModalIsOpen: (value, data) => {
+        set({ editingModalIsOpen: value, measurementToUpdate: data }, false, "setEditingModalIsOpen");
       },
+
+      // setMeasurementToUpdate: (value) => {
+      //   set({ measurementToUpdate: value }, false, "setMeasurementToUpdate");
+      // }
+      
     })),
   ),
 
