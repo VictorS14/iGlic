@@ -11,13 +11,11 @@ export const useEditingGlicose = () => {
          
          const response = await axios.put(baseUrl, {
             id: id,
-            params: {
-               userId,
-               glicoseValue,
-               measure_at
-            }
+            userId,
+            glicoseValue,
+            measure_at
          })
-
+         
          return response.data;
       },
 
