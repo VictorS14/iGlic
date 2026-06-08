@@ -24,7 +24,7 @@ export const RecentReadings = () => {
 
   return (
     <div>
-      <div className="border w-full min-h-60">
+      <div className="w-full min-h-60">
         {status === "loading" && <p>Carregando leituras recentes...</p>}
         {status === "error" && (
           <p>Erro ao carregar leituras. Tente novamente.</p>
@@ -45,7 +45,7 @@ export const RecentReadings = () => {
                 text-white font-medium ml-2 border w-10 h-10 p-2 rounded-full flex items-center justify-center`}>
                   {reading.value}
                 </div>
-                <div className="w-32 h-10 flex items-center gap-6 p-2 ml-auto border">
+                <div className="w-32 h-10 flex items-center gap-6 p-2 ml-auto">
                 <FaTrashAlt
                 size={20} 
                 className="text-red-500"

@@ -4,7 +4,7 @@ import { AddGlucoseEntry } from "../components/AddGlucoseEntry";
 
 export const Dashboard = () => {
   return (
-    <div className="w-full min-h-dvh border flex flex-col gap-2">
+    <div className="w-full min-h-dvh  flex flex-col gap-2">
       <GlucoseSummary />
       <RecentReadings />
       <AddGlucoseEntry/>
