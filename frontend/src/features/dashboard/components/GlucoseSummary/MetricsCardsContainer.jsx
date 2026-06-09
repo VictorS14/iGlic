@@ -20,11 +20,11 @@ export const MetricsCardsContainer = ({ selectedPeriod }) => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-wrap ">
+      <div className="w-full h-full flex flex-wrap">
         <MetricCard
           title={"Média da Glicose"}
           value={
-            status === "success" ? `${data.average} mg/dl` : "Carregando..."
+            status === "success" ? `${data.average} mg/dl` : "0 medições"
           }
         />
 
