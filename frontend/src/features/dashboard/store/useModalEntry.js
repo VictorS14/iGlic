@@ -19,12 +19,7 @@ export const useModalEntry = create(
 
       setEditingModalIsOpen: (value, data) => {
         set({ editingModalIsOpen: value, measurementToUpdate: data }, false, "setEditingModalIsOpen");
-      },
-
-      // setMeasurementToUpdate: (value) => {
-      //   set({ measurementToUpdate: value }, false, "setMeasurementToUpdate");
-      // }
-      
+      }
     })),
   ),
 

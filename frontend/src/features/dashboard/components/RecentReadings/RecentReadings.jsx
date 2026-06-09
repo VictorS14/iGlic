@@ -10,7 +10,6 @@ export const RecentReadings = () => {
   const userId = storedUser?.id || 8;
 
   const { data, status } = useRecentReadings(userId);
-  console.log("🚀 ~ RecentReadings ~ data:", data)
 
   const targetMin = useTargetRange((state) => state.minTarget);
   const targetMax = useTargetRange((state) => state.maxTarget);
@@ -20,7 +19,6 @@ export const RecentReadings = () => {
 
   const setterIsOpen = useModalEntry((state) => state.setIsOpen);
   const setterEditingModalIsOpen = useModalEntry((state) => state.setEditingModalIsOpen);
-  // const setterMeasurementToUpdate = useModalEntry((state) => state.setMeasurementToUpdate);
 
   return (
     <div>
@@ -55,7 +53,6 @@ export const RecentReadings = () => {
                 onClick={() => {
                   setterEditingModalIsOpen(true, reading)
                   setterIsOpen(true)
-                  // setterMeasurementToUpdate({id: reading.id, ...reading})
                 }}
                 />
                 </div>

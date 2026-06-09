@@ -1,4 +1,3 @@
-// backend/services/authService.js
 import { randomUUID } from "crypto";
 import * as authRepository from '../repositories/authRepository.js';
 import { generateToken } from '../utils/jwtUtils.js'; 
@@ -44,7 +43,6 @@ export const verifyLoginCode = async (email, code) => {
 
     await authRepository.markAuthCodeAsUsed(authCode.id);
 
-    // TODO: Gerar um token JWT real aqui
     const token = generateToken({ 
         id: user.id, 
         email: user.email 

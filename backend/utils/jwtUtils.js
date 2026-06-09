@@ -1,4 +1,3 @@
-// backend/utils/jwtUtils.js
 import jwt from "jsonwebtoken";
 import "dotenv/config"; // Para carregar as variáveis de ambiente
 

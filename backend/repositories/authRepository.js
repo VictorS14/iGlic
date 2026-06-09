@@ -1,4 +1,3 @@
-// backend/repositories/authRepository.js
 import pool from "../config/database.js";
 
 export const findUserByEmail = async (email) => {
