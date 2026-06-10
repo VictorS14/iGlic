@@ -22,7 +22,7 @@ export const RecentReadings = () => {
 
   return (
     <div>
-      <div className={`${data?.length === 0 ? "flex items-center justify-center" : ""} w-full min-h-60 p-4`}>
+      <div className={`${data?.length === 0 ? "flex items-center justify-center" : ""} w-full min-h-60 pr-4`}>
         {status === "loading" && <p>Carregando leituras recentes...</p>}
         {status === "error" && (
           <p>Erro ao carregar leituras. Tente novamente.</p>
