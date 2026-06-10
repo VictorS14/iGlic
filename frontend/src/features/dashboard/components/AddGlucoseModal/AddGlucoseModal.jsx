@@ -109,7 +109,7 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
           />
         </div>
 
-        <div className="w-full h-16 flex items-center p-2 gap-16 border-b border-gray-300">
+        <div className="w-full h-16 flex items-center p-2 gap-4 [@media_(min-width:375px)]:gap-14 border-b border-gray-300">
           <label htmlFor="glucose">Glicemia:</label>
           <div className="flex gap-4">
             <div className="w-6 h-6 rounded-full bg-green-700"></div>
