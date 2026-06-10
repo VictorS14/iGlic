@@ -4,6 +4,7 @@ import { IoMdCheckmark } from "react-icons/io";
 import { useSaveGlicose } from "../../hooks/useSaveGlicose";
 import { useEditingGlicose } from "../../hooks/useEditingGlicose";
 import { useModalEntry } from "../../store/useModalEntry";
+import { useTargetRange } from "../../../settings/store/useTargetRange";
 
 export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
   const now = new Date();
@@ -26,6 +27,9 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
   const measurementToUpdate = useModalEntry(
     (state) => state.measurementToUpdate,
   );
+
+  const targetMin = useTargetRange((state) => state.minTarget);
+  const targetMax = useTargetRange((state) => state.maxTarget);
 
 
   useEffect(() => {
@@ -112,7 +116,12 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
         <div className="w-full h-16 flex items-center p-2 gap-4 [@media_(min-width:375px)]:gap-14 border-b border-gray-300">
           <label htmlFor="glucose">Glicemia:</label>
           <div className="flex gap-4">
-            <div className="w-6 h-6 rounded-full bg-green-700"></div>
+            <div className={`w-6 h-6 rounded-full ${
+              glucoseValue < targetMin 
+              ? "bg-orange-500"
+              : glucoseValue > targetMax
+                ? "bg-red-600"
+                : "bg-green-700"}`}></div>
             <input
               className="w-20 font-semibold outline-none"
               type="number"
