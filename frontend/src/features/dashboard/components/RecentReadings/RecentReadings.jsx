@@ -22,7 +22,7 @@ export const RecentReadings = () => {
 
   return (
     <div>
-      <div className={`${data?.length === 0 ? "flex items-center justify-center" : ""} w-full min-h-60 pr-4`}>
+      <div className={`${data?.length === 0 ? "flex items-center justify-center" : ""} w-full min-h-60`}>
         {status === "loading" && <p>Carregando leituras recentes...</p>}
         {status === "error" && (
           <p>Erro ao carregar leituras. Tente novamente.</p>
@@ -33,6 +33,7 @@ export const RecentReadings = () => {
             {data.filter((reading) => {
               return reading.measure_at.slice(0,10) === date;
             })
+            .sort((a,b) => a.timestamp.localeCompare(b.timestamp))
             .map((reading) => (
               <li
                 key={reading.id}
