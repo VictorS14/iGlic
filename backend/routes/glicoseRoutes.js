@@ -19,5 +19,7 @@ router.get('/glicose/target-range', glicoseController.getTargetRange);
 
 router.get('/glicose/recent-readings', glicoseController.getRecentReadings);
 
+router.get('/glicose/all-data', glicoseController.getAllData);
+
 
 export default router; 

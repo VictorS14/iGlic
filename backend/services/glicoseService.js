@@ -65,3 +65,41 @@ export const getUserTargetRange = async (userId) => {
 export const getRecentReadings = async (userId) => {
 	return await glicoseRepo.getRecentReadings(userId);
 }
+
+export const getAllData = async (userId) => {
+	const data = await glicoseRepo.getAllData(userId);
+
+	const groupedData = groupByDate(data);
+	return groupedData;
+}
+
+const groupByDate = (dados) => {
+	return dados.reduce((acc, el) => {
+
+		let dataStr;
+		if (el.measure_at instanceof Date) {
+			dataStr = el.measure_at.toISOString().split('T')[0];
+		} else if (typeof el.measure_at === 'string') {
+			dataStr = el.measure_at.split('T')[0];
+		} else {
+			return acc;
+		}
+
+		let grupoExistente = acc.find(grupo => grupo.data === dataStr);
+
+		if(!grupoExistente) {
+			grupoExistente = {
+				data: dataStr,
+				registros: []
+			};
+			acc.push(grupoExistente);
+		}
+
+		grupoExistente.registros.push({
+			id: el.id,
+			value: el.value
+		});
+
+		return acc;
+	}, []) 
+}

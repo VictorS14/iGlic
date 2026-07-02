@@ -173,3 +173,21 @@ export async function getRecentReadings(userId) {
     throw error;
   }
 }
+
+export async function getAllData(userId) {
+  try {
+    const result = await pool.query(`
+      SELECT
+        g.id,
+        g.value,
+        g.measure_at
+      FROM glicose_values as g
+      WHERE user_id = $1 
+      ORDER BY measure_at DESC;
+      `,[userId]);
+      return result.rows;
+  } catch (error) {
+    console.error("Error ao buscar os dados:", error.message);
+    throw error;
+  }
+} 

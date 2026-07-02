@@ -94,3 +94,13 @@ export const getRecentReadings = async (req,res) => {
 		return res.status(400).json({error: error.message});
 	};
 };
+
+export const getAllData = async (req, res) => {
+	try {
+		const {userId} = req.query;
+		const allData = await glicoseService.getAllData(userId);
+		return res.status(200).json(allData);
+	} catch (error) {
+		return res.status(400).json({error: error.message});
+	}
+}
