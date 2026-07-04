@@ -8,7 +8,7 @@ export const CurtainMenu = () => {
   const menuItems = [
     { label: "Início", href: "/" },
     { label: "Configurações", href: "/settings" },
-    { label: "Histórico", href: "#" },
+    { label: "Histórico", href: "/history" },
   ];
 
   return (
