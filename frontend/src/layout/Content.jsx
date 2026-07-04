@@ -2,6 +2,7 @@ import { Header } from "./Header";
 import { Dashboard } from "../features/dashboard/pages/Dashboard";
 import { Routes, Route } from "react-router-dom";
 import { SettingsPage } from "../features/settings/pages/setting.jsx";
+import { History } from "../features/history/pages/History";
 
 export const Content = () => {
   return (
@@ -11,6 +12,7 @@ export const Content = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </main>
     </div>
