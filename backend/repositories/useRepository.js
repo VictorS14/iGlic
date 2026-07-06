@@ -180,7 +180,8 @@ export async function getAllData(userId) {
       SELECT
         g.id,
         g.value,
-        g.measure_at
+        g.measure_at,
+        TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
       FROM glicose_values as g
       WHERE user_id = $1 
       ORDER BY measure_at DESC;
