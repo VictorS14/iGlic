@@ -90,14 +90,16 @@ const groupByDate = (dados) => {
 		if(!grupoExistente) {
 			grupoExistente = {
 				data: dataStr,
+				timestamp: el.timestamp,
 				registros: []
 			};
 			acc.push(grupoExistente);
 		}
 
-		grupoExistente.registros.push({
+				grupoExistente.registros.push({
 			id: el.id,
-			value: el.value
+			value: el.value,
+			timestamp: el.timestamp
 		});
 
 		return acc;
