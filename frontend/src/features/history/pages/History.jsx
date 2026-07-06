@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { HistoryOfMeasurement } from "../components/HistoryOfMeasurement";
 
 export const History = () => {
   return (
@@ -13,7 +14,7 @@ export const History = () => {
 
        <h1>Histórico</h1>
       </div>
+      <HistoryOfMeasurement />
     </div>
-    
   )
 }
