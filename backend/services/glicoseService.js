@@ -1,4 +1,5 @@
 import * as glicoseRepo from "../repositories/useRepository.js";
+import { groupByDate } from "../utils/groupByDate.js";
 
 export const registerGlucose = async (value, userId, measure_at) => {
 	if(value < 10 || value > 700) {
@@ -71,37 +72,4 @@ export const getAllData = async (userId) => {
 
 	const groupedData = groupByDate(data);
 	return groupedData;
-}
-
-const groupByDate = (dados) => {
-	return dados.reduce((acc, el) => {
-
-		let dataStr;
-		if (el.measure_at instanceof Date) {
-			dataStr = el.measure_at.toISOString().split('T')[0];
-		} else if (typeof el.measure_at === 'string') {
-			dataStr = el.measure_at.split('T')[0];
-		} else {
-			return acc;
-		}
-
-		let grupoExistente = acc.find(grupo => grupo.data === dataStr);
-
-		if(!grupoExistente) {
-			grupoExistente = {
-				data: dataStr,
-				timestamp: el.timestamp,
-				registros: []
-			};
-			acc.push(grupoExistente);
-		}
-
-				grupoExistente.registros.push({
-			id: el.id,
-			value: el.value,
-			timestamp: el.timestamp
-		});
-
-		return acc;
-	}, []) 
 }
