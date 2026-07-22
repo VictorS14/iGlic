@@ -68,7 +68,7 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
       }`}
     >
       <div
-        className={`${isOpen ? "block" : "hidden"} w-[min(90vw,400px)] h-80 bg-white border rounded-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+        className={`${isOpen ? "block" : "hidden"} w-[min(90vw,400px)] h-60 bg-white border rounded-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
       >
         <div className="w-full h-14 p-2 flex items-center justify-between border-b border-gray-300">
           <button>
@@ -106,7 +106,7 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
         <div className="w-full h-16 flex items-center p-2 gap-2 [@media_(min-width:375px)]:gap-14 border-b border-gray-300">
           <label htmlFor="time">Horário:</label>
           <input
-            className="border p-2"
+            className="border p-2 w-[min(90%,12rem)]"
             type="datetime-local"
             value={dateTime}
             onChange={(e) => setDateTime(e.target.value)}
