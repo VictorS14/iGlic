@@ -85,14 +85,14 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
 
                 if (editingModalIsOpen) {
                   editingGlicose.mutate({
-                    userId: 8,
+                    userId: 1,
                     glicoseValue: glucoseValue,
                     id: measurementToUpdate.id,
                     measure_at: dateTime,
                   });
                 } else {
                   saveGlicose.mutate({
-                    userId: 8,
+                    userId: 1,
                     value: glucoseValue,
                     dateTime: dateTime,
                   });

@@ -23,7 +23,7 @@ export const TherapySettings = () => {
   const minGlicoseValue = 70;
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 8; // o ID 8 é apenas para teste
+  const userId = storedUser?.id || 1; // o ID 8 é apenas para teste
 
   const saveTargetRangeOnDB = useSaveTargetRangeOnDB();
 

@@ -13,7 +13,7 @@ export const GlucoseSummary = () => {
   const [selectedPeriod, setSelectedPeriod] = useState("Hoje");
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 8;
+  const userId = storedUser?.id || 1;
 
   useEffect(() => {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";

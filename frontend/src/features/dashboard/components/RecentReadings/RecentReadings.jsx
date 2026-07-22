@@ -7,7 +7,7 @@ import { useModalEntry } from "../../store/useModalEntry";
 export const RecentReadings = () => {
   const deleteGlicose = useDeleteGlicose();
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 8;
+  const userId = storedUser?.id || 1;
 
   const { data, status } = useRecentReadings(userId);
 

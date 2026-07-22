@@ -4,7 +4,7 @@ import { WrapperOfMeasurements } from "./WrapperOfMeasurements";
 
 export const HistoryOfMeasurement = () => {
   const [openItemId, setItemOpenId] = useState(null);
-  const { data } = useAllData(8);
+  const { data } = useAllData(1);
   console.log("🚀 ~ HistoryOfMeasurement ~ data:", data?.slice(0, 3));
 
   const history = data?.slice(0, 3);

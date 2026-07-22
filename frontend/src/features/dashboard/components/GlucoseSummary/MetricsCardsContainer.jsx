@@ -5,7 +5,7 @@ import { GlycemicVariability } from "./GlycemicVariability";
 export const MetricsCardsContainer = ({ selectedPeriod }) => {
   // Tentando pegar o ID do localStorage, se não existir, usa o 8 para testes :)
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 8;
+  const userId = storedUser?.id || 1;
 
   const { data, status } = useGlicoseAverage(userId, selectedPeriod);
 
