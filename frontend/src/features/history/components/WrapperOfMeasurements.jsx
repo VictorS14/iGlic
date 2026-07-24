@@ -19,24 +19,29 @@ export const WrapperOfMeasurements = ({
     <div
       key={props.data}
       onClick={() => handleToggle(props.data)}
-      className={`${openItemId === props.data ? "h-auto pb-2" : "min-h-10"} rounded-md bg-gray-300`}
+      className={`${openItemId === props.data ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out border`}
     >
       <div
         className={`${openItemId === props?.data ? "h-22" : ""} 
-        ${props?.media > targetMax ? "bg-red-600" 
-         : props?.media < targetMin ? "bg-orange-700" : "bg-green-700"} w-full h-10 pl-2 flex flex-col gap-2 rounded-md`}
+        ${
+          props?.media > targetMax
+            ? "bg-red-600"
+            : props?.media < targetMin
+              ? "bg-orange-700"
+              : "bg-green-700"
+        } w-full h-10 pl-2 flex flex-col gap-2 rounded-md transition-all duration-200 ease-in-out`}
       >
         <span className="text-white">{props?.data}</span>
         <div
           className={`${openItemId === props.data ? "block" : "hidden"} flex gap-4`}
         >
           <div className="w-14 h-11 bg-white border-none rounded-full flex flex-col items-center justify-center border">
-            <span className="text-[min(3vw,1rem)]">{props?.media}</span>
+            <span className="text-[min(3vw,1rem)] font-semibold">{props?.media}</span>
             <span className="text-[min(2vw,0.625rem)]">mg/dL</span>
           </div>
           <div className="w-14 h-11 bg-white border-none rounded-full flex flex-col items-center justify-center border">
-            <span className="text-[min(2vw,0.625rem)]">registros</span>
-            <span className="text-[min(3vw,1rem)]">
+            <span className="text-[min(3vw,0.625rem)]">registros</span>
+            <span className="text-[min(3vw,1rem)] font-semibold">
               {props?.registros.length}
             </span>
           </div>
