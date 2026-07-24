@@ -40,7 +40,7 @@ export const RecentReadings = () => {
                 className="p-3 border rounded-md flex items-center"
               >
                 <span className="text-gray-500">{reading.timestamp}</span>
-                <div className= {`${reading.value > targetMax ? "bg-red-600" : reading.value < targetMin ? "bg-orange-700" : "bg-green-700"}
+                <div className= {`${reading.value > targetMax ? "bg-red-600" : reading.value < targetMin ? "bg-orange-500" : "bg-green-700"}
                 text-white font-medium ml-2 border w-10 h-10 p-2 rounded-full flex items-center justify-center`}>
                   {reading.value}
                 </div>
