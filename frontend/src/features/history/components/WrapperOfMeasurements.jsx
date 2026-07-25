@@ -19,7 +19,7 @@ export const WrapperOfMeasurements = ({
     <div
       key={props.data}
       onClick={() => handleToggle(props.data)}
-      className={`${openItemId === props.data ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out border`}
+      className={`${openItemId === props.data ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out`}
     >
       <div
         className={`${openItemId === props?.data ? "h-22" : ""} 
