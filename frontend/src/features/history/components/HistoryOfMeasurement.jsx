@@ -5,9 +5,6 @@ import { WrapperOfMeasurements } from "./WrapperOfMeasurements";
 export const HistoryOfMeasurement = () => {
   const [openItemId, setItemOpenId] = useState(null);
   const { data } = useAllData(1);
-  console.log("🚀 ~ HistoryOfMeasurement ~ data:", data?.slice(0, 3));
-
-  const history = data?.slice(0, 3);
 
   const handleToggle = (itemId) => {
     setItemOpenId(openItemId === itemId ? null : itemId);
@@ -15,7 +12,7 @@ export const HistoryOfMeasurement = () => {
 
   return (
     <div className=" flex flex-col gap-3">
-      {history?.map((item) => (
+      {data?.map((item) => (
         <WrapperOfMeasurements 
         openItemId={openItemId}
         handleToggle={handleToggle}
