@@ -33,7 +33,7 @@ export const RecentReadings = () => {
             {data.filter((reading) => {
               return reading.measure_at.slice(0,10) === date;
             })
-            .sort((a,b) => a.timestamp.localeCompare(b.timestamp))
+            .sort((a,b) => b.timestamp.localeCompare(a.timestamp))
             .map((reading) => (
               <li
                 key={reading.id}
