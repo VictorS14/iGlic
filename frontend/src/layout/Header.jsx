@@ -1,4 +1,5 @@
 import { CurtainMenu } from "../components/CurtainMenu";
+import { NavBarMenu } from "../components/NavBarMenu";
 
 export const Header = () => {
   return (
@@ -6,6 +7,7 @@ export const Header = () => {
       <div className="w-full h-full flex items-center justify-between">
         <h1 className="text-2xl font-bold text-green-600 font-serif">iGlic</h1>
         <CurtainMenu />
+        <NavBarMenu />
       </div>
     </header>
   );
