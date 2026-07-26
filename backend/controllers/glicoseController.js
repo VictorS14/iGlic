@@ -2,7 +2,8 @@ import * as glicoseService from "../services/glicoseService.js";
 
 export const store = async (req, res) => {
 	try {
-		const { glicoseValue, userId, measure_at} = req.body;
+		const { glicoseValue, measure_at} = req.body;
+		const { userId } = req.user;
 		const measurement = await glicoseService.registerGlucose(glicoseValue, userId, measure_at);
 
 		return res.status(201).json(measurement);
@@ -15,7 +16,8 @@ export const store = async (req, res) => {
 export const update = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { glicoseValue, userId, measure_at } = req.body;
+		const { id: userId } = req.user;
+		const { glicoseValue, measure_at } = req.body;
 		const measurementUpdated = await glicoseService.updateMeasurement(
 			glicoseValue,
 			id,
@@ -31,7 +33,7 @@ export const update = async (req, res) => {
 
 export const average = async (req, res) => {
 	try {
-		const { userId } = req.query;
+		const { id: userId } = req.user;
 		const data = await glicoseService.getAverage(userId);
 
 		return res.status(200).json(data);
@@ -43,7 +45,8 @@ export const average = async (req, res) => {
 
 export const averageByPeriod = async (req, res) => {
 	try {
-		const { userId, days } = req.query;
+		const { id: userId } = req.user;
+		const { days } = req.query;
 		const data = await glicoseService.getAverageByPeriod(userId, days)
 
 		return res.status(200).json(data);
@@ -56,7 +59,7 @@ export const averageByPeriod = async (req, res) => {
 export const removeMeasurement = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { userId } = req.query;
+		const { id: userId } = req.user;	
 		const deteled = await glicoseService.deleteMeasurement(id, userId);
 
 		return res.status(200).json(deteled);
@@ -67,7 +70,8 @@ export const removeMeasurement = async (req, res) => {
 
 export const saveTargetRange = async (req, res) => {
 	try {
-		const {userId, veryHigh, targetRangeMin, targetRangeMax} = req.body;
+		const { id: userId } = req.user;
+		const { veryHigh, targetRangeMin, targetRangeMax} = req.body;
 		const range = await glicoseService.saveTargetRange(userId, veryHigh, targetRangeMin, targetRangeMax);
 		return res.status(200).json(range);
 	} catch (error) {
@@ -77,7 +81,7 @@ export const saveTargetRange = async (req, res) => {
 
 export const getTargetRange = async (req, res) => {
 	try {
-		const {userId} = req.query;
+		const { id: userId } = req.user;
 		const range = await glicoseService.getUserTargetRange(userId);
 		return res.status(200).json(range);
 	} catch (error) {
@@ -87,7 +91,7 @@ export const getTargetRange = async (req, res) => {
 
 export const getRecentReadings = async (req,res) => {
 	try {
-		const {userId} = req.query;
+		const { id: userId } = req.user;
 		const recentReadings = await glicoseService.getRecentReadings(userId);
 		return res.status(200).json(recentReadings);
 	} catch (error) {
@@ -95,9 +99,9 @@ export const getRecentReadings = async (req,res) => {
 	};
 };
 
-export const getAllData = async (req, res) => {
+export const getAllData = async (req, res) => {	
 	try {
-		const {userId} = req.query;
+		const { id: userId } = req.user;
 		const allData = await glicoseService.getAllData(userId);
 		return res.status(200).json(allData);
 	} catch (error) {
