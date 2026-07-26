@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import * as glicoseController from '../controllers/glicoseController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = Router();
+
+router.use(authMiddleware);
 
 router.post('/glicose', glicoseController.store);
 
