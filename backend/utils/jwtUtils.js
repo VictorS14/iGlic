@@ -9,7 +9,7 @@ if (!JWT_SECRET) {
 }
 
 export const generateToken = (payload) => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" }); // Token expira em 1 hora
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" }); // Token expira em 24 horas (1 dia)
 };
 
 export const verifyToken = (token) => {
