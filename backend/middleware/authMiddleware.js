@@ -1,4 +1,4 @@
-import { verifyCode } from "../controllers/authController";
+import { verifyToken } from "../utils/jwtUtils.js";
 
 export const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -20,7 +20,7 @@ export const authMiddleware = (req, res, next) => {
   }
 
   try {
-    const decoded = verifyCode(token);
+    const decoded = verifyToken(token);
 
     req.user = {
       id: decoded.id,
