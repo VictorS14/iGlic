@@ -4,8 +4,12 @@ import { TargetRange } from "./TargetRange";
 import { useTargetRange } from "../../store/useTargetRange.js";
 import {handleMinBlur, handleMaxBlur } from "./utils/therapyUtils.js";
 import { useSaveTargetRangeOnDB } from "../../hooks/useSaveTargetRangeOnDB.jsx";
+import { useAuth } from "../../../../context/AuthContext.jsx";
 
 export const TherapySettings = () => {
+  const { user } = useAuth();
+  const userId = user?.id;
+
   const storedVeryHigh = useTargetRange((state) => state.veryHigh);
   const storedMin = useTargetRange((state) => state.minTarget);
   const storedMax = useTargetRange((state) => state.maxTarget);
@@ -22,9 +26,6 @@ export const TherapySettings = () => {
   const maxGlicoseValue = 210;
   const minGlicoseValue = 70;
 
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 1; // o ID 8 é apenas para teste
-
   const saveTargetRangeOnDB = useSaveTargetRangeOnDB();
 
   const validateAndSet = (value, setter, storeSetter) => {
@@ -40,7 +41,7 @@ export const TherapySettings = () => {
     if (newValue.length <= maxVeryHigh) {
       validateAndSet(newValue, setVeryHigh, setVeryHighStore);
       saveTargetRangeOnDB.mutate({
-        userId: userId,
+        userId, 
         veryHigh: newValue,
         targetRangeMin: targetRangeMin,
         targetRangeMax: targetRangeMax
@@ -52,7 +53,7 @@ export const TherapySettings = () => {
     const newValue = e.target.value
     validateAndSet(newValue, setTargetRangeMin, setMinTarget);
     saveTargetRangeOnDB.mutate({
-        userId: userId,
+        userId,   
         veryHigh: veryHigh,
         targetRangeMin: newValue,
         targetRangeMax: targetRangeMax
@@ -63,7 +64,7 @@ export const TherapySettings = () => {
     const newValue = e.target.value 
     validateAndSet(newValue, setTargetRangeMax, setMaxTarget);
     saveTargetRangeOnDB.mutate({
-        userId: userId,
+        userId,   
         veryHigh: veryHigh,
         targetRangeMin: targetRangeMin,
         targetRangeMax: newValue 

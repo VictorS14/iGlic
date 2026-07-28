@@ -1,11 +1,11 @@
 import { useGlicoseAverage } from "../../hooks/useGlicoseAverage";
 import { MetricCard } from "../../ui/MetricCard";
 import { GlycemicVariability } from "./GlycemicVariability";
+import { useAuth } from "../../../../context/AuthContext.jsx";
 
 export const MetricsCardsContainer = ({ selectedPeriod }) => {
-  // Tentando pegar o ID do localStorage, se não existir, usa o 8 para testes :)
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 1;
+  const { user } = useAuth();
+  const userId = user?.id;
 
   const { data, status } = useGlicoseAverage(userId, selectedPeriod);
 

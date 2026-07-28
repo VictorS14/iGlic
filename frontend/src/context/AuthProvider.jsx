@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { AuthContext } from "./AuthContext";
-import api from "../services/api";
+import { AuthContext } from "./AuthContext.jsx";
+import api from "../services/api.js";
 
 
 export function AuthProvider({ children }) {
@@ -27,7 +27,7 @@ export function AuthProvider({ children }) {
       const response = await api.post("/auth/guest");
       const { user: userData, token: tokenData } = response.data;
 
-      localStorage.setItem("user", JSON.stringfy(userData));
+      localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", tokenData);
 
       setUser(userData);

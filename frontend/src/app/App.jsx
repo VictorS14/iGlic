@@ -2,7 +2,7 @@ import { Content } from "../layout/Content.jsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../context/AuthProvider.jsx";
-import Login from "../features/auth/pages/Login.jsx";
+import { Login } from "../features/auth/pages/Login.jsx";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute.jsx";
 import { Dashboard } from "../features/dashboard/pages/Dashboard.jsx";
 import { History } from "../features/history/pages/History.jsx";

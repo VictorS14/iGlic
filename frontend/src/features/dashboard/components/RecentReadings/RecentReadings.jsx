@@ -3,11 +3,12 @@ import { useTargetRange } from "../../../settings/store/useTargetRange";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 import { useDeleteGlicose } from "../../hooks/useDeleteGlicose";
 import { useModalEntry } from "../../store/useModalEntry";
+import { useAuth } from "../../../../context/AuthContext.jsx";
 
 export const RecentReadings = () => {
+  const { user } = useAuth();
+  const userId = user?.id;
   const deleteGlicose = useDeleteGlicose();
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = storedUser?.id || 1;
 
   const { data, status } = useRecentReadings(userId);
 
@@ -48,7 +49,7 @@ export const RecentReadings = () => {
                 <FaTrashAlt
                 size={20} 
                 className="text-red-500"
-                onClick={() => deleteGlicose.mutate({ id: reading.id, userId: userId})}
+                onClick={() => deleteGlicose.mutate({ userId, id: reading.id })}
                 />
                 <FaPen size={20} className="text-blue-800"
                 onClick={() => {

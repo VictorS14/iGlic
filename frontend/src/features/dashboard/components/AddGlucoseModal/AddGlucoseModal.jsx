@@ -5,8 +5,11 @@ import { useSaveGlicose } from "../../hooks/useSaveGlicose";
 import { useEditingGlicose } from "../../hooks/useEditingGlicose";
 import { useModalEntry } from "../../store/useModalEntry";
 import { useTargetRange } from "../../../settings/store/useTargetRange";
+import { useAuth } from "../../../../context/AuthContext";
 
 export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
+  const { user } = useAuth();
+  const userId = user?.id;
   const now = new Date();
   const formattedDate = new Date(
     now.getTime() - now.getTimezoneOffset() * 60000,
@@ -85,14 +88,14 @@ export const AddGlucoseModal = ({ isOpen, handleToggleModal }) => {
 
                 if (editingModalIsOpen) {
                   editingGlicose.mutate({
-                    userId: 1,
+                    userId,
                     glicoseValue: glucoseValue,
                     id: measurementToUpdate.id,
                     measure_at: dateTime,
                   });
                 } else {
                   saveGlicose.mutate({
-                    userId: 1,
+                    userId,
                     value: glucoseValue,
                     dateTime: dateTime,
                   });

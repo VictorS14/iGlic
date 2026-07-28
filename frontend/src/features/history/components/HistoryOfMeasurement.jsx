@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useAllData } from "../hooks/useAllData";
 import { WrapperOfMeasurements } from "./WrapperOfMeasurements";
+import { useAuth } from "../../../context/AuthContext.jsx";
 
 export const HistoryOfMeasurement = () => {
   const [openItemId, setItemOpenId] = useState(null);
-  const { data } = useAllData(1);
+  const { user } = useAuth();
+  const userId = user?.id;
+  const { data } = useAllData(userId);
 
   const handleToggle = (itemId) => {
     setItemOpenId(openItemId === itemId ? null : itemId);
