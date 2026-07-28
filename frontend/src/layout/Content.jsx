@@ -1,19 +1,11 @@
 import { Header } from "./Header";
-import { Dashboard } from "../features/dashboard/pages/Dashboard";
-import { Routes, Route } from "react-router-dom";
-import { SettingsPage } from "../features/settings/pages/setting.jsx";
-import { History } from "../features/history/pages/History";
 
-export const Content = () => {
+export const Content = ({ children }) => {
   return (
     <div className="w-full min-h-dvh flex flex-col items-center bg-gray-100">
       <Header />
       <main className="w-full mt-16 max-w-7xl p-4 grow">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/history" element={<History />} />
-        </Routes>
+        {children}
       </main>
     </div>
   );
