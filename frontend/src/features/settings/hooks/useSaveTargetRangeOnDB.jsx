@@ -1,21 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../../../services/api.js";
 
 export const useSaveTargetRangeOnDB = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({
-      userId,
       veryHigh,
       targetRangeMin,
       targetRangeMax,
     }) => {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      const baseUrl = `${apiUrl}/glicose`;
-
-      const response = await axios.post(`${baseUrl}/target-range`, {
-        userId,
+      const response = await api.post("/glicose/target-range", {
         veryHigh,
         targetRangeMin,
         targetRangeMax,

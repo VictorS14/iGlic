@@ -1,24 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../../../services/api.js";
 
 export const useDeleteGlicose = () => {
    const queryClient = useQueryClient();
 
    return useMutation({
-      mutationFn: async ({id, userId}) => {
-         const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-         const baseUrl = `${apiUrl}/glicose/${id}`;
-
-         const response = await axios.delete(baseUrl, {
-            id: id,
-            params: {userId}
-         })
-
+      mutationFn: async ({ id }) => {
+         const response = await api.delete(`/glicose/${id}`);
          return response.data;
       },
 
       onSuccess: () => {
-         queryClient.invalidateQueries(["recentReadings", "media"])
+         queryClient.invalidateQueries({ queryKey: ["recentReadings", "media"] });
       }
    })
 }

@@ -1,16 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../../../services/api.js";
 
 export const useSaveGlicose = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ userId, value, dateTime }) => {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      const baseUrl = `${apiUrl}/glicose`;
-
-      const response = await axios.post(baseUrl, {
-        userId,
+    mutationFn: async ({ value, dateTime }) => {
+      const response = await api.post("/glicose", {
         glicoseValue: value,
         measure_at: dateTime
       });
@@ -19,7 +15,7 @@ export const useSaveGlicose = () => {
     },
 
     onSuccess: () => {
-      queryClient.invalidateQueries(["recentReadings", "media"]);
+      queryClient.invalidateQueries({ queryKey: ["recentReadings", "media"] });
     },
   });
 };

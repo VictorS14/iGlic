@@ -1,23 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../services/api";
 
 export const useGlicoseAverage = (userId, selectedPeriod) => {
   return useQuery({
     queryKey: ["media", userId, selectedPeriod],
-    queryFn: async () => {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
-      const baseUrl = `${apiUrl}/glicose`;
+    queryFn: async () => {  
 
       if (selectedPeriod === "Hoje") {
-        const response = await axios.get(`${baseUrl}/average`, {
-          params: { userId },
-        });
+        const response = await api.get("/glicose/average");
         return response.data;
       }
 
       const days = selectedPeriod.split(" ")[0];
-      const response = await axios.get(`${baseUrl}/average-period`, {
-        params: { userId, days },
+      const response = await api.get("/glicose/average-period", {
+        params: { days },
       });
       return response.data;
     },
