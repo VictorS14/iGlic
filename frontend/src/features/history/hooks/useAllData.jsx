@@ -6,7 +6,7 @@ export const useAllData = (userId) => {
       queryKey: ["allData", userId],
       queryFn: async () => {
          const response = await api.get("/glicose/all-data");
-         console.log("Dados agrupados por data:", response.data);
+         // console.log("Dados agrupados por data:", response.data);
          return response.data;
       }
    });
