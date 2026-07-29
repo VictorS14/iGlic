@@ -1,12 +1,14 @@
 import { useTargetRange } from "../../settings/store/useTargetRange";
 
 export const WrapperOfMeasurements = ({
-  openItemId,
+  openItemIds,
   handleToggle,
   ...props
 }) => {
   const targetMin = useTargetRange((state) => state.minTarget);
   const targetMax = useTargetRange((state) => state.maxTarget);
+
+  const isOpen = openItemIds.has(props.data)
 
   const lowCount = props?.registros.filter(
     (item) => Number(item.value) < targetMin,
@@ -19,10 +21,10 @@ export const WrapperOfMeasurements = ({
     <div
       key={props.data}
       onClick={() => handleToggle(props.data)}
-      className={`${openItemId === props.data ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out`}
+      className={`${isOpen ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out`}
     >
       <div
-        className={`${openItemId === props?.data ? "h-22" : ""} 
+        className={`${isOpen ? "h-22" : ""} 
         ${
           props?.media > targetMax
             ? "bg-red-600"
@@ -33,7 +35,7 @@ export const WrapperOfMeasurements = ({
       >
         <span className="text-white">{props?.data}</span>
         <div
-          className={`${openItemId === props.data ? "block" : "hidden"} flex gap-4`}
+          className={`${isOpen ? "block" : "hidden"} flex gap-4`}
         >
           <div className="w-14 h-11 bg-white border-none rounded-full flex flex-col items-center justify-center border">
             <span className="text-[min(3vw,1rem)] font-semibold">{props?.media}</span>
@@ -61,7 +63,7 @@ export const WrapperOfMeasurements = ({
         </div>
       </div>
       <ul
-        className={`${openItemId === props.data ? "block" : "hidden"} mt-2 space-y-1`}
+        className={`${isOpen ? "block" : "hidden"} mt-2 space-y-1`}
       >
         {props?.registros?.map((reg) => (
           <li className="p-1 rounded-md flex items-center">
