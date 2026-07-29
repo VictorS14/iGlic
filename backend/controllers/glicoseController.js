@@ -3,7 +3,7 @@ import * as glicoseService from "../services/glicoseService.js";
 export const store = async (req, res) => {
 	try {
 		const { glicoseValue, measure_at} = req.body;
-		const { userId } = req.user;
+		const { id: userId } = req.user;
 		const measurement = await glicoseService.registerGlucose(glicoseValue, userId, measure_at);
 
 		return res.status(201).json(measurement);
