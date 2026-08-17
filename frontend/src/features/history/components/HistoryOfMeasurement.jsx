@@ -7,7 +7,7 @@ export const HistoryOfMeasurement = () => {
   const [openItemIds, setOpenItemIds] = useState(new Set());
   const { user } = useAuth();
   const userId = user?.id;
-  const { data } = useAllData(userId);
+  const { data, status } = useAllData(userId);
 
   const handleToggle = (itemId) => {
     setOpenItemIds((prev) => {
@@ -24,13 +24,22 @@ export const HistoryOfMeasurement = () => {
 
   return (
     <div className=" flex flex-col gap-3">
-      {data?.map((item) => (
-        <WrapperOfMeasurements 
-        openItemIds={openItemIds}
-        handleToggle={handleToggle}
-        {...item}
-        />
-      ))}
+      {status === "loading" && <div>Carregando...</div>}
+      {status === "error" && <div>Error ao carregar dados</div>}
+      
+      {status === "success" && (
+        data?.length > 0 ? (
+          data.map((item) => (
+            <WrapperOfMeasurements 
+            openItemIds={openItemIds}
+            handleToggle={handleToggle}
+            {...item}
+            />
+          ))
+        ) : (
+          <div>Nenhum dado encontrado.</div>
+        )
+      )}
     </div>
   );
 };
