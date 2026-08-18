@@ -1,19 +1,31 @@
+const extractDateStr = (el) => {
+  if (el.date_only) return el.date_only;
+
+  const date = el.measure_at instanceof Date ? el.measure_at : new Date(el.measure_at);
+  if (isNaN(date.getTime())) return null;
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+const formatForDisplay = (dataStr) => {
+  const [year, month, day] = dataStr.split("-");
+  return `${day}-${month}-${year}`
+}
+
 export const groupByDate = (data) => {
   const groupedData = data.reduce((acc, el) => {
-    let dataStr;
-    if (el.measure_at instanceof Date) {
-      dataStr = el.measure_at.toISOString().split("T")[0];
-    } else if (typeof el.measure_at === "string") {
-      dataStr = el.measure_at.split("T")[0];
-    } else {
-      return acc;
-    }
+    const dataStr = extractDateStr(el);
+    if (!dataStr) return acc;
 
-    let grupoExistente = acc.find((grupo) => grupo.data === dataStr);
+    let grupoExistente = acc.find((grupo) => grupo._isoDate === dataStr);
 
     if (!grupoExistente) {
       grupoExistente = {
-        data: dataStr,
+        _isoDate: dataStr,
+        data: formatForDisplay(dataStr),
         timestamp: el.timestamp,
         registros: [],
       };
