@@ -14,9 +14,11 @@ export const useSaveGlicose = () => {
       return response.data;
     },
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recentReadings"] });
-      queryClient.invalidateQueries({ queryKey: ["media"] });
+    onSuccess: (_, variables) => {
+      const userId = variables.userId;
+      queryClient.invalidateQueries({ queryKey: ["recentReadings", userId] });
+      queryClient.invalidateQueries({ queryKey: ["media", userId] });
+      queryClient.invalidateQueries({ queryKey: ["allData", userId] });
     },
   });
 };

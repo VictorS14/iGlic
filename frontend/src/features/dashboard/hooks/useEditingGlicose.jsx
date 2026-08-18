@@ -14,9 +14,12 @@ export const useEditingGlicose = () => {
          return response.data;
       },
 
-      onSuccess: () => {
+      onSuccess: (_, variables) => {
+         const userId = variables.userId;
+
          queryClient.invalidateQueries({ queryKey: ["recentReadings"] });
          queryClient.invalidateQueries({ queryKey: ["media"] });
+         queryClient.invalidateQueries({ queryKey: ["allData", userId] });
       }
    })
 }  
