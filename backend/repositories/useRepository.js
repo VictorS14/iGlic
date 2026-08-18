@@ -64,8 +64,8 @@ export async function getGlicoseAverageDay(userId) {
         INNER JOIN 
             users AS u ON g.user_id = u.id
         WHERE 
-            u.id = $1 AND g.create_at >= CURRENT_DATE 
-            AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
+            u.id = $1 AND g.measure_at >= CURRENT_DATE 
+            AND g.measure_at < CURRENT_DATE + INTERVAL '1 day';
       `, [userId]);
 
       return result.rows[0];
@@ -86,7 +86,7 @@ export async function getGlicoseAverageByPeriod(userId, days) {
             glicose_values AS g
         WHERE 
             g.user_id = $1   
-            AND g.create_at >= CURRENT_DATE - ($2 * INTERVAL '1 days');
+            AND g.measure_at >= CURRENT_DATE - ($2 * INTERVAL '1 days');
       `, [userId, days]);
 
       return result.rows[0];
@@ -181,6 +181,7 @@ export async function getAllData(userId) {
         g.id,
         g.value,
         g.measure_at,
+        TO_CHAR(g.measure_at, 'YYYY-MM-DD') AS date_only,
         TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
       FROM glicose_values as g
       WHERE user_id = $1 
