@@ -8,7 +8,7 @@ export const WrapperOfMeasurements = ({
   const targetMin = useTargetRange((state) => state.minTarget);
   const targetMax = useTargetRange((state) => state.maxTarget);
 
-  const isOpen = openItemIds.has(props.data)
+  const isOpen = openItemIds.has(props.date)
 
   const lowCount = props?.registros.filter(
     (item) => Number(item.value) < targetMin,
@@ -19,8 +19,8 @@ export const WrapperOfMeasurements = ({
 
   return (
     <div
-      key={props.data}
-      onClick={() => handleToggle(props.data)}
+      key={props.date}
+      onClick={() => handleToggle(props.date)}
       className={`${isOpen ? "max-h-screen pb-2 opacity-100" : "max-h-10 opacity-100"} overflow-hidden rounded-md bg-gray-300 transition-all duration-500 ease-in-out`}
     >
       <div
@@ -33,7 +33,7 @@ export const WrapperOfMeasurements = ({
               : "bg-green-700"
         } w-full h-10 pl-2 flex flex-col gap-2 rounded-md transition-all duration-200 ease-in-out`}
       >
-        <span className="text-white">{props?.data}</span>
+        <span className="text-white">{props?.date}</span>
         <div
           className={`${isOpen ? "block" : "hidden"} flex gap-4`}
         >

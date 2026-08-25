@@ -25,7 +25,7 @@ export const groupByDate = (data) => {
     if (!grupoExistente) {
       grupoExistente = {
         _isoDate: dataStr,
-        data: formatForDisplay(dataStr),
+        date: formatForDisplay(dataStr),
         timestamp: el.timestamp,
         registros: [],
       };
