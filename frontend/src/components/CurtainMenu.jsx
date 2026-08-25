@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCurtainMenu } from "../store/useCurtainMenu";
 
 export const CurtainMenu = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = useCurtainMenu((state) => state.isMenuOpen);
+  const setIsOpen = useCurtainMenu((state) => state.setIsMenuOpen);
+  const toggleMenu = useCurtainMenu((state) => state.toggleMenu);
 
   const menuItems = [
     { label: "Início", href: "/" },
@@ -14,7 +16,7 @@ export const CurtainMenu = () => {
   return (
     <div className="flex items-center lg:hidden">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggleMenu}
         className={`${isOpen ? "hidden" : ""} text-2xl p-2 focus:outline-none hover:bg-black/5 rounded-full transition-colors`}
       >
         <FaBars />
