@@ -6,7 +6,8 @@ export const TimerRangerSelector = ({ selectedPeriod, setSelectedPeriod }) => {
   };
 
   return (
-    <div className="w-full h-8 flex border rounded-sm">
+    <div className="w-full h-8 flex border rounded-sm lg:rounded-lg 
+    lg:h-12">
       <ButtonTimerSelector
         customClassName={"rounded-tl-sm rounded-bl-sm"}
         period={"Hoje"}
