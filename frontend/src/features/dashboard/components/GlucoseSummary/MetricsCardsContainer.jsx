@@ -20,12 +20,10 @@ export const MetricsCardsContainer = ({ selectedPeriod }) => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-wrap">
+      <div className="w-full h-full flex flex-wrap lg:flex-nowrap lg:grid-cols-4 lg:gap-2">
         <MetricCard
           title={"Média da Glicose"}
-          value={
-            status === "success" ? `${data.average} mg/dl` : "0 medições"
-          }
+          value={status === "success" ? `${data.average} mg/dl` : "0 medições"}
         />
 
         <MetricCard
