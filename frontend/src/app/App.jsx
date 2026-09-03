@@ -7,6 +7,7 @@ import ProtectedRoute from "../features/auth/components/ProtectedRoute.jsx";
 import { Dashboard } from "../features/dashboard/pages/Dashboard.jsx";
 import { History } from "../features/history/pages/History.jsx";
 import { SettingsPage } from "../features/settings/pages/setting.jsx";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ function App() {
               }
             />
           </Routes>
+          <Toaster position="center"/>
         </QueryClientProvider>
       </AuthProvider>
     </BrowserRouter>
