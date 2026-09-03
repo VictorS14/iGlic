@@ -30,6 +30,7 @@ export const RecentReadings = () => {
         )}
         {status === "success" && data && data.length > 0 ? (
           <ul className="mt-4 space-y-2">
+            <h1 className="text-[min(5vw,1.2rem)] font-semibold">Leituras de Hoje</h1>
             <p className="text-md text-gray-500 font-semibold ml-2">{date}</p>
             {data.filter((reading) => {
               return reading.measure_at.slice(0,10) === date;
