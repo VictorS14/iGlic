@@ -61,11 +61,10 @@ export async function getGlicoseAverageDay(userId) {
             ARRAY_AGG(g.value) AS medicoes
         FROM 
             glicose_values AS g
-        INNER JOIN 
-            users AS u ON g.user_id = u.id
         WHERE 
-            u.id = $1 AND g.measure_at >= CURRENT_DATE 
-            AND g.measure_at < CURRENT_DATE + INTERVAL '1 day';
+            g.user_id = $1 
+            AND g.measure_at >= date_trunc('day', now() AT TIME ZONE 'America/Sao_Paulo')
+            AND g.measure_at < date_trunc('day', now() AT TIME ZONE 'America/Sao_Paulo') + INTERVAL '1 day';
       `, [userId]);
 
       return result.rows[0];
@@ -164,8 +163,10 @@ export async function getRecentReadings(userId) {
         TO_CHAR(g.measure_at, 'DD-MM-YYYY HH24:MI') AS measure_at,
         TO_CHAR(g.measure_at, 'HH24:MI') AS timestamp
       FROM glicose_values AS g
-      WHERE g.user_id = $1 AND g.create_at >= CURRENT_DATE
-        AND g.create_at < CURRENT_DATE + INTERVAL '1 day';
+      WHERE g.user_id = $1 
+        AND g.measure_at >= date_trunc('day', now() AT TIME ZONE 'America/Sao_Paulo')
+        AND g.measure_at < date_trunc('day', now() AT TIME ZONE 'America/Sao_Paulo') + INTERVAL '1 day'
+      ORDER BY g.measure_at DESC;
       `, [userId]);
         return result.rows;
   }catch(error) {
